@@ -1,22 +1,94 @@
 /**
- * Proiekzioak
+ * Proiekzioa
  */
 public abstract class Proiekzioa {
 
+	/** Proiekzioaren identifikatzailea */
 	private int id;
+	/** Proiekzioaren izenburua */
 	private String izenburua;
-	private int denbora;
+	/** Proiekzioaren iraupena */
+	private int iraupena;
 
+	/**
+	 * Eraikitzaile hutsa
+	 */
 	public Proiekzioa() {
 		this.id = 0;
 		this.izenburua = "";
-		this.denbora = 0;
+		this.iraupena = 0;
 	}
 
-	public Proiekzioa(int id, String izenburua, int denbora) {
+	/**
+	 * Eraikitzailea
+	 * 
+	 * @param id        Proiekzioaren identifikatzailea
+	 * @param izenburua Proiekzioaren izenburua
+	 * @param iraupena  Proiekzioaren iraupena
+	 */
+	public Proiekzioa(int id, String izenburua, int iraupena) {
 		this.id = id;
 		this.izenburua = izenburua;
-		this.denbora = denbora;
+		this.iraupena = iraupena;
+	}
+
+	/**
+	 * Proiekzioaren identifikatzailea lortu
+	 * 
+	 * @return Proiekzioaren identifikatzailea
+	 */
+	public int getId() {
+		return id;
+	}
+
+	/**
+	 * Proiekzioaren identifikatzailea ezarri
+	 * 
+	 * @param id Proiekzioaren identifikatzailea
+	 */
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	/**
+	 * Proiekzioaren izenburua lortu
+	 * 
+	 * @return Proiekzioaren izenburua
+	 */
+	public String getIzenburua() {
+		return izenburua;
+	}
+
+	/**
+	 * Proiekzioaren izenburua ezarri
+	 * 
+	 * @param izenburua Proiekzioaren izenburua
+	 */
+	public void setIzenburua(String izenburua) {
+		this.izenburua = izenburua;
+	}
+
+	/**
+	 * Proiekzioaren iraupena lortu
+	 * 
+	 * @return Proiekzioaren iraupena
+	 */
+	public int getiraupena() {
+		return iraupena;
+	}
+
+	/**
+	 * Proiekzioaren iraupena ezarri
+	 * 
+	 * @param iraupena Proiekzioaren iraupena
+	 */
+	public void setiraupena(int iraupena) {
+		this.iraupena = iraupena;
+	}
+
+	@Override
+	public String toString() {
+		return "ID: " + id + "\nIzenburua: " + izenburua + "\nIraupena: " + iraupena;
 	}
 
 }
