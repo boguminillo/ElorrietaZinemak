@@ -1,5 +1,6 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -72,6 +73,27 @@ public class CsvParser {
 			e.printStackTrace();
 		}
 		return proiekzioenZerrenda;
+	}
+
+	/**
+	 * Proiekzioen zerrenda idatzi
+	 * 
+	 * @param fitxeroa Fitxeroaren izena
+	 * @param ArrayList<Proiekzioa> Proiekzioen zerrenda
+	 */
+	public static void idatziProiekzioenZerrenda(String fitxeroa, ArrayList<Proiekzioa> proiekzioenZerrenda) {
+		try {
+			File fitx = new File(fitxeroa);
+			fitx.createNewFile();
+			FileWriter fw = new FileWriter(fitx);
+			for (Proiekzioa proiekzioa : proiekzioenZerrenda) {
+				String linea = proiekzioa.toString();
+				fw.write(linea + "\n");
+			}
+			fw.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 }

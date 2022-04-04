@@ -36,7 +36,7 @@ public class FilmLaburra extends Proiekzioa {
 
 	@Override
 	public String toString() {
-		return "FilmLaburra;" + super.toString() + ";" + fabula;
+		return "FilmLaburra;" + super.toString() + ";" + fabula + "\n";
 	}
 	
 }
