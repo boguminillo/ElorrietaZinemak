@@ -1,7 +1,7 @@
 /**
  * Filma
  */
-public class Filma extends Proiekzioa {
+public class Filma extends FilmLuzea {
 	
 	
 }

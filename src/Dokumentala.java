@@ -1,7 +1,7 @@
 /**
  * Dokumentala
  */
-public class Dokumentala extends Proiekzioa {
+public class Dokumentala extends FilmLuzea {
 	
 	
 }

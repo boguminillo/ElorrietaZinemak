@@ -88,7 +88,7 @@ public abstract class Proiekzioa {
 
 	@Override
 	public String toString() {
-		return "ID: " + id + "\nIzenburua: " + izenburua + "\nIraupena: " + iraupena;
+		return id + ";" + izenburua + ";" + iraupena + "\n";
 	}
 
 }
