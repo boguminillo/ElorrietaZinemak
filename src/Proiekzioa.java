@@ -60,7 +60,7 @@ public abstract class Proiekzioa {
 	 * 
 	 * @return Proiekzioaren iraupena
 	 */
-	public int getiraupena() {
+	public int getIraupena() {
 		return iraupena;
 	}
 
@@ -69,7 +69,7 @@ public abstract class Proiekzioa {
 	 * 
 	 * @param iraupena Proiekzioaren iraupena
 	 */
-	public void setiraupena(int iraupena) {
+	public void setIraupena(int iraupena) {
 		this.iraupena = iraupena;
 	}
 
