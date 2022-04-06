@@ -57,10 +57,10 @@ public class CsvParser {
 	 * @param fitxeroa Proiekzioen zerrenda
 	 * @return Proiekzioen zerrenda
 	 */
-	public static ArrayList<Proiekzioa> irakurriProiekzioenZerrenda(File fitxeroa) {
+	public static ArrayList<Proiekzioa> irakurriProiekzioenZerrenda(String fitxeroa) {
+		File fitx = new File(fitxeroa);
 		ArrayList<Proiekzioa> proiekzioenZerrenda = new ArrayList<Proiekzioa>();
-		try {
-			Scanner sc = new Scanner(fitxeroa);
+		try (Scanner sc = new Scanner(fitx);) {
 			while (sc.hasNextLine()) {
 				String linea = sc.nextLine();
 				Proiekzioa proiekzioa = irakurriProiekzioa(linea);
@@ -68,7 +68,6 @@ public class CsvParser {
 					proiekzioenZerrenda.add(proiekzioa);
 				}
 			}
-			sc.close();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -87,8 +86,7 @@ public class CsvParser {
 			fitx.createNewFile();
 			FileWriter fw = new FileWriter(fitx);
 			for (Proiekzioa proiekzioa : proiekzioenZerrenda) {
-				String linea = proiekzioa.toString();
-				fw.write(linea + "\n");
+				fw.write(proiekzioa.toString());
 			}
 			fw.close();
 		} catch (Exception e) {
