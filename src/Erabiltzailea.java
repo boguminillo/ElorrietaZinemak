@@ -1,4 +1,10 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.time.LocalDate;
+import java.util.Scanner;
 
 /**
  * Erabiltzailea
@@ -169,8 +175,25 @@ public class Erabiltzailea {
 	 * @return true logina ondo egin bada eta false errorerik egon bada
 	 */
 	public boolean login() {
-		// TODO
-		return true;
+		File file = new File("datuak/erabiltzaileak.csv");
+		try (Scanner sc = new Scanner(file)){
+			while (sc.hasNextLine()) {
+				String line = sc.nextLine();
+				String[] data = line.split(";");
+				if (data[0].equals(login) && data[1].equals(pasahitza)) {
+					this.izena = data[2];
+					this.abizena = data[3];
+					this.jaiotzeData = LocalDate.parse(data[4]);
+					this.funtzioa = Funtzioak.valueOf(data[5]);
+					return true;
+				} else if (data[0].equals(login) && !data[1].equals(pasahitza)) {
+					return false;
+				}
+			}
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		return false;
 	}
 
 	/**
@@ -179,7 +202,40 @@ public class Erabiltzailea {
 	 * @return true gorde bada eta false logina existitzen bada
 	 */
 	public boolean erregistratu() {
-		// TODO
-		return true;
+		if (login.equals("") || pasahitza.equals("") || izena.equals("") || abizena.equals("") || jaiotzeData == LocalDate.now() || erregistratutaDago()) {
+			return false;
+		}
+		File file = new File("datuak/erabiltzaileak.csv");
+		try (PrintWriter pw = new PrintWriter(new FileWriter(file, true))) {
+			pw.print(this.toString());
+			return true;
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
+	/**
+	 * Erabiltzailea existitzen al duen konprobatu
+	 * 
+	 * @return true existitzen bada eta false existitzen ez bada
+	 */
+	public boolean erregistratutaDago(){
+		File file = new File("datuak/erabiltzaileak.csv");
+		if (!file.exists()) {
+			return false;
+		}
+		try (Scanner sc = new Scanner(file)){
+			while (sc.hasNextLine()) {
+				String line = sc.nextLine();
+				String[] data = line.split(";");
+				if (data[0].equals(login)) {
+					return true;
+				}
+			}
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		return false;
 	}
 }
