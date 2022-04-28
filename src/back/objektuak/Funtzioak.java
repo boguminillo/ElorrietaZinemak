@@ -1,3 +1,4 @@
+package back.objektuak;
 /**
  * Erabiltzaile bat izan ahal dituen funtzioak
  */

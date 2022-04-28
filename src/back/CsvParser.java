@@ -1,8 +1,14 @@
+package back;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import back.objektuak.Dokumentala;
+import back.objektuak.FilmLaburra;
+import back.objektuak.Filma;
+import back.objektuak.Proiekzioa;
 
 /**
  * CsvParser
