@@ -1,0 +1,35 @@
+Filma;id;Izenburua;Iraupena;Pegi;Genero;
+FilmLaburra;id;Izenburua;Iraupena;Fabula;
+Documental;id;Izenburua;Iraupena;Tema;
+combobox default coger un array de strings 
+
+Pelis:
+Filma;1;Alcarràs;120;12;Drama
+Filma;2;Doctor Strange in the Multiverse of Madness;126;7;Ciencia Ficcion
+Filma;3;El Padrino;175;13;Crimen
+Filma;4;Soy leyenda;101;12;Thriller
+Filma;5;Toy Story;80;0;Animacion
+Filma;6;El club de la lucha;139;18;Misterio
+Filma;7;Interestellar;169;12;Aventura
+Filma;8;Casablanca;102;0;Romance
+Filma;9;Deadpool;106;18;Comedia
+Filma;10;Shrek;90;0;Comedia Romantica
+
+Documental;id;Izenburua;Iraupena;Tema;
+
+Documentales:
+Documental;11;El beso de Dios. El documental de la Misa;70;Cristianismo;
+Documental;12;La Marche De l'Empereur;85;Pingüinos;
+Documental;13;La historia del camello que llora;90;Camellos
+Documental;14;Super Size Me;96;Experimento social
+Documental;15;Nanook, el esquimal;91;La vida de los esquimales
+
+FilmLaburra;id;Izenburua;Iraupena;Fabula;
+Cortos:
+FilmLaburra;16;Un chien andalou;21;Filme surrealista, todo un clásico del cine de arte y ensayo, una obra única y de culto, fruto de la poderosa imaginación de dos jóvenes mentes -Buñuel tenía 29 años y Dalí 25- poseedoras de un talento tan singular como genial.
+FilmLaburra;17;Frankenweenie;26;Víctor Frankenstein es un niño que realiza cortos donde su perro Sparky es el protagonista, hasta que este es arrollado por un camión. En su escuela, Víctor aprende sobre el impulso eléctrico de los músculos y se le ocurre usar esa técnica para revivir a su mascota.
+FilmLaburra;18;Mirindas asesinas;11;Un hombre entra en un bar, en el que sólo hay un cliente, y pide un refresco: una Mirinda bien fría. Los problemas comienzan cuando el camarero le quiere cobrar la bebida.
+FilmLaburra;19;Marisa;4;Nueva historia de Vigalondo sobre el continuo espacio-tiempo y las relaciones humanas.
+FilmLaburra;20;The Lady and the Reaper;8;"La dama y la muerte" narra con humor el deseado camino de una anciana hacia la muerte, ya que espera reencontrarse con su marido fallecido tiempo atrás.
+
+
