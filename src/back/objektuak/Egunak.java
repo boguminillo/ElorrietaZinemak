@@ -1,0 +1,5 @@
+package back.objektuak;
+
+public enum Egunak {
+	ASTELEHENA, ASTEARTEA, ASTEAZKENA, OSTEGUNA, OSTIRALA, LARUNBATA, IGANDEA
+}
