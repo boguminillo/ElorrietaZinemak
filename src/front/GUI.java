@@ -22,6 +22,7 @@ import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 
 import back.objektuak.Egunak;
+import back.objektuak.Erabiltzailea;
 import back.objektuak.Funtzioak;
 import net.miginfocom.swing.MigLayout;
 
@@ -107,9 +108,28 @@ public class GUI {
 		login.add(passwordFieldLogin, "cell 2 2,growx");
 		
 		JButton btnLoginHasiera = new JButton("← Hasiera");
+		btnLoginHasiera.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				CardLayout cl = (CardLayout)principal.getLayout();
+				cl.show(principal, "OngiEtorria");
+			}
+		});
 		login.add(btnLoginHasiera, "cell 0 4,alignx left");
 		
 		JButton btnLoginJarraitu = new JButton("Jarraitu →");
+		btnLoginJarraitu.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				Erabiltzailea erabiltzailea = new Erabiltzailea();
+				erabiltzailea.setLogin(txtLoginErabiltzailea.getText());
+				erabiltzailea.setPasahitza(new String(passwordFieldLogin.getPassword()));
+				if (erabiltzailea.login()) {
+					CardLayout cl = (CardLayout)principal.getLayout();
+					cl.show(principal, "Edukia");
+				}
+			}
+		});
 		login.add(btnLoginJarraitu, "cell 3 4,alignx right");
 		
 		JPanel register = new JPanel();
@@ -286,5 +306,7 @@ public class GUI {
 		
 		JButton btnEdukiaLaburpena = new JButton("Laburpena");
 		edukia.add(btnEdukiaLaburpena, "cell 4 9,growx");
+		
+		
 	}
 }
