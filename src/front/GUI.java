@@ -11,6 +11,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JScrollPane;
@@ -25,6 +26,8 @@ import back.objektuak.Egunak;
 import back.objektuak.Erabiltzailea;
 import back.objektuak.Funtzioak;
 import net.miginfocom.swing.MigLayout;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class GUI {
 
@@ -127,7 +130,8 @@ public class GUI {
 				if (erabiltzailea.login()) {
 					CardLayout cl = (CardLayout) principal.getLayout();
 					cl.show(principal, "Edukia");
-				}
+				} else if (!erabiltzailea.login())
+					JOptionPane.showMessageDialog(null, "Erabiltzailea edota pasahitza txarto idatzita daude.");
 			}
 		});
 		login.add(btnLoginJarraitu, "cell 3 4,alignx right");
@@ -184,6 +188,19 @@ public class GUI {
 		register.add(comboBoxErregistroFuntzioak, "cell 2 7,growx");
 
 		JButton btnErregistratu = new JButton("Erregistratu");
+		btnErregistratu.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				Erabiltzailea erabiltzailea = new Erabiltzailea();
+				if (erabiltzailea.erregistratutaDago()) {
+					JOptionPane.showMessageDialog(null, "Erabiltzailea erregistratuta dago.");
+
+				} else {
+					JOptionPane.showMessageDialog(null, "Erabiltzailea erregistratu egin da.");
+					erabiltzailea.erregistratu();
+				}
+			}
+		});
 		register.add(btnErregistratu, "cell 3 9");
 
 		JPanel egunAutaketa = new JPanel();
@@ -205,12 +222,33 @@ public class GUI {
 		egunAutaketa.add(btnEgunAutaketaKartelera, "cell 1 3");
 
 		JButton btnEgunAutaketaAsteLaburpena = new JButton("Aste Laburpena");
+		btnEgunAutaketaAsteLaburpena.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				CardLayout cl = (CardLayout) principal.getLayout();
+				cl.show(principal, "AsteLaburpena");
+			}
+		});
 		egunAutaketa.add(btnEgunAutaketaAsteLaburpena, "cell 2 3");
 
 		JButton btnEgunAutaketaHasiera = new JButton("← Hasiera");
+		btnEgunAutaketaHasiera.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				CardLayout cl = (CardLayout) principal.getLayout();
+				cl.show(principal, "OngiEtorria");
+			}
+		});
 		egunAutaketa.add(btnEgunAutaketaHasiera, "cell 0 4");
 
 		JButton btnEgunAutaketaBaieztatu = new JButton("Baieztatu →");
+		btnEgunAutaketaBaieztatu.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				CardLayout cl = (CardLayout) principal.getLayout();
+				cl.show(principal, "Baieztapena");
+			}
+		});
 		egunAutaketa.add(btnEgunAutaketaBaieztatu, "cell 3 4");
 
 		JPanel edukia = new JPanel();
@@ -262,7 +300,7 @@ public class GUI {
 		scrollPaneEdukiaDokumentalak.setViewportView(tableEdukiaDokumentalak);
 		tableEdukiaDokumentalak.setModel(
 				new DefaultTableModel(new Object[][] {}, new String[] { "ID", "Izenburua", "Iraupena", "Tema" }) {
-					Class[] columnTypes = new Class[] { Integer.class, String.class, Integer.class, Object.class};
+					Class[] columnTypes = new Class[] { Integer.class, String.class, Integer.class, Object.class };
 
 					public Class getColumnClass(int columnIndex) {
 						return columnTypes[columnIndex];
@@ -288,7 +326,63 @@ public class GUI {
 		edukia.add(btnEdukiaGehitu, "cell 2 9,growx");
 
 		JButton btnEdukiaLaburpena = new JButton("Laburpena");
+		btnEdukiaLaburpena.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				CardLayout cl = (CardLayout) principal.getLayout();
+				cl.show(principal, "EgunLaburpena");
+			}
+		});
 		edukia.add(btnEdukiaLaburpena, "cell 4 9,growx");
 
+		JPanel egunLaburpena = new JPanel();
+		principal.add(egunLaburpena, "EgunLaburpena");
+		egunLaburpena.setLayout(new MigLayout("", "[grow][right][left][grow]", "[grow][bottom][top][grow][]"));
+
+		JButton btnEgunLaburpenaBaieztatu = new JButton("Baieztatu");
+		btnEgunLaburpenaBaieztatu.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				CardLayout cl = (CardLayout) principal.getLayout();
+				cl.show(principal, "EgunAutaketa");
+			}
+		});
+		egunLaburpena.add(btnEgunLaburpenaBaieztatu, "cell 3 4,alignx right");
+
+		JPanel asteLaburpena = new JPanel();
+		principal.add(asteLaburpena, "AsteLaburpena");
+		asteLaburpena.setLayout(new MigLayout("", "[grow][right][center][][grow]", "[grow][bottom][top][grow][]"));
+
+		JButton btnAsteLaburpenaEgunAutaketa = new JButton("Egun Autaketa");
+		btnAsteLaburpenaEgunAutaketa.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				CardLayout cl = (CardLayout) principal.getLayout();
+				cl.show(principal, "EgunAutaketa");
+			}
+		});
+		asteLaburpena.add(btnAsteLaburpenaEgunAutaketa, "cell 2 4");
+
+		JPanel baieztapena = new JPanel();
+		principal.add(baieztapena, "Baieztapena");
+		baieztapena.setLayout(new MigLayout("", "[grow][][grow][][grow]", "[154.00,grow][grow][grow][grow,bottom]"));
+
+		JButton btnBaieztapenaBukatu = new JButton("Loginera Itzuli");
+		btnBaieztapenaBukatu.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				CardLayout cl = (CardLayout) principal.getLayout();
+				cl.show(principal, "OngiEtorria");
+				txtLoginErabiltzailea.setText("");
+				passwordFieldLogin.setText("");
+			}
+
+		});
+
+		JLabel lblNewLabel = new JLabel("New label");
+		baieztapena.add(lblNewLabel, "cell 2 0,alignx center");
+
+		JLabel lblBaieztapena = new JLabel("New label");
+		baieztapena.add(lblBaieztapena, "cell 2 1,alignx center,aligny bottom");
+		baieztapena.add(btnBaieztapenaBukatu, "cell 2 2,alignx center,aligny top");
 	}
 }
