@@ -51,8 +51,8 @@ public class GUI {
 	private JTable tableEdukiaFilmak;
 	private JTable tableEdukiaDokumentalak;
 	private JTable tableEdukiaFilmLaburrak;
-	private ArrayList<Proiekzioa> proiekzioak = CsvParser.irakurriProiekzioenZerrenda("");
-	private ArrayList<Proiekzioa> egunekoProiekzioak = CsvParser.irakurriProiekzioenZerrenda("ASTELEHENA");
+	private ArrayList<Proiekzioa> proiekzioak = CsvParser.irakurriProiekzioenZerrenda("proiekzioak");
+	private ArrayList<Proiekzioa> egunekoProiekzioak = CsvParser.irakurriProiekzioenZerrenda("datuak/ASTELEHENA");
 
 	/**
 	 * Launch the application.
@@ -248,16 +248,6 @@ public class GUI {
 		JLabel lblEgunaAukeratu = new JLabel("Eguna aukeratu:");
 		egunAutaketa.add(lblEgunaAukeratu, "cell 1 1,alignx trailing");
 
-		comboBoxEgunAutaketa = new JComboBox();
-		comboBoxEgunAutaketa.addItemListener(new ItemListener() {
-			public void itemStateChanged(ItemEvent e) {
-				//TODO
-				JOptionPane.showMessageDialog(null, "Erabiltzailea erregistratuta dago.");
-			}
-		});
-		comboBoxEgunAutaketa.setModel(new DefaultComboBoxModel(Egunak.values()));
-		egunAutaketa.add(comboBoxEgunAutaketa, "cell 2 1,growx");
-
 		JTextArea txtInfoEgunAutaketa = new JTextArea();
 		txtInfoEgunAutaketa.addMouseListener(new MouseAdapter() {
 			@Override
@@ -270,6 +260,16 @@ public class GUI {
 		});
 		txtInfoEgunAutaketa.setBackground(UIManager.getColor("menu"));
 		egunAutaketa.add(txtInfoEgunAutaketa, "cell 1 2 2 1,alignx center,growy");
+
+		comboBoxEgunAutaketa = new JComboBox();
+		comboBoxEgunAutaketa.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
+				//TODO
+				txtInfoEgunAutaketa.setText(egunekoProiekzioak.toString());
+			}
+		});
+		comboBoxEgunAutaketa.setModel(new DefaultComboBoxModel(Egunak.values()));
+		egunAutaketa.add(comboBoxEgunAutaketa, "cell 2 1,growx");
 
 		JButton btnEgunAutaketaKartelera = new JButton("Kartelera");
 		egunAutaketa.add(btnEgunAutaketaKartelera, "cell 1 3");
