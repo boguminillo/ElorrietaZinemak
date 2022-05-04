@@ -5,6 +5,9 @@ import java.awt.CardLayout;
 import java.awt.EventQueue;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -22,12 +25,16 @@ import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 
+import back.CsvParser;
 import back.objektuak.Egunak;
 import back.objektuak.Erabiltzailea;
 import back.objektuak.Funtzioak;
+import back.objektuak.Proiekzioa;
 import net.miginfocom.swing.MigLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.ItemListener;
+import java.awt.event.ItemEvent;
 
 public class GUI {
 
@@ -40,9 +47,12 @@ public class GUI {
 	private JPasswordField passwordFieldErregistroErrepikatu;
 	private JPasswordField passwordFieldErregistro;
 	private JTextField txtErregistroErabiltzailea;
+	private JComboBox comboBoxEgunAutaketa;
 	private JTable tableEdukiaFilmak;
 	private JTable tableEdukiaDokumentalak;
 	private JTable tableEdukiaFilmLaburrak;
+	private ArrayList<Proiekzioa> proiekzioak = CsvParser.irakurriProiekzioenZerrenda("");
+	private ArrayList<Proiekzioa> egunekoProiekzioak = CsvParser.irakurriProiekzioenZerrenda("ASTELEHENA");
 
 	/**
 	 * Launch the application.
@@ -128,8 +138,9 @@ public class GUI {
 				erabiltzailea.setLogin(txtLoginErabiltzailea.getText());
 				erabiltzailea.setPasahitza(new String(passwordFieldLogin.getPassword()));
 				if (erabiltzailea.login()) {
+					comboBoxEgunAutaketa.setSelectedIndex(0);
 					CardLayout cl = (CardLayout) principal.getLayout();
-					cl.show(principal, "Edukia");
+					cl.show(principal, "EgunAutaketa");
 				} else if (!erabiltzailea.login())
 					JOptionPane.showMessageDialog(null, "Erabiltzailea edota pasahitza txarto idatzita daude.");
 			}
@@ -191,13 +202,40 @@ public class GUI {
 		btnErregistratu.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				Erabiltzailea erabiltzailea = new Erabiltzailea();
-				if (erabiltzailea.erregistratutaDago()) {
-					JOptionPane.showMessageDialog(null, "Erabiltzailea erregistratuta dago.");
-
+				LocalDate jaiotzeData;
+				try {
+					jaiotzeData = LocalDate.parse(txtErregistroJaiotzeData.getText());
+				} catch (DateTimeParseException e1) {
+					JOptionPane.showMessageDialog(null, "Jaiotze data ez da zuzena.(yyyy-mm-dd)");
+					return;
+				}
+				String login = txtErregistroErabiltzailea.getText();
+				String pasahitza = new String(passwordFieldErregistro.getPassword());
+				String pasahitzaErrepikatu = new String(passwordFieldErregistroErrepikatu.getPassword());
+				String izena = txtErregistroIzena.getText();
+				String abizenak = txtErregistroAbizenak.getText();
+				Funtzioak funtzioa = (Funtzioak) comboBoxErregistroFuntzioak.getSelectedItem();
+				if (!pasahitza.equals(pasahitzaErrepikatu)) {
+					JOptionPane.showMessageDialog(null, "Pasahitzak ez dira berdinak.");
+				} else if(login.isBlank() || pasahitza.isBlank() || izena.isBlank() || abizenak.isBlank()) {
+					JOptionPane.showMessageDialog(null, "Eremu guztiak bete behar dira.");
+				} else if(jaiotzeData.isAfter(LocalDate.now())){
+					JOptionPane.showMessageDialog(null, "Jaiotze data ez da zuzena.");
 				} else {
-					JOptionPane.showMessageDialog(null, "Erabiltzailea erregistratu egin da.");
-					erabiltzailea.erregistratu();
+					Erabiltzailea erabiltzailea = new Erabiltzailea();
+					erabiltzailea.setLogin(login);
+					erabiltzailea.setPasahitza(pasahitza);
+					erabiltzailea.setIzena(izena);
+					erabiltzailea.setAbizena(abizenak);
+					erabiltzailea.setJaiotzeData(jaiotzeData);
+					erabiltzailea.setFuntzioa(funtzioa);
+					if (erabiltzailea.erregistratutaDago()) {
+						JOptionPane.showMessageDialog(null, "Erabiltzailea erregistratuta dago.");
+					} else {
+						JOptionPane.showMessageDialog(null, "Erabiltzailea erregistratu egin da.");
+						erabiltzailea.erregistratu();
+						sarrera.setSelectedIndex(0);
+					}
 				}
 			}
 		});
@@ -210,11 +248,26 @@ public class GUI {
 		JLabel lblEgunaAukeratu = new JLabel("Eguna aukeratu:");
 		egunAutaketa.add(lblEgunaAukeratu, "cell 1 1,alignx trailing");
 
-		JComboBox comboBoxEgunAutaketa = new JComboBox();
+		comboBoxEgunAutaketa = new JComboBox();
+		comboBoxEgunAutaketa.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
+				//TODO
+				JOptionPane.showMessageDialog(null, "Erabiltzailea erregistratuta dago.");
+			}
+		});
 		comboBoxEgunAutaketa.setModel(new DefaultComboBoxModel(Egunak.values()));
 		egunAutaketa.add(comboBoxEgunAutaketa, "cell 2 1,growx");
 
 		JTextArea txtInfoEgunAutaketa = new JTextArea();
+		txtInfoEgunAutaketa.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				String eguna = (String) comboBoxEgunAutaketa.getSelectedItem();
+				egunekoProiekzioak = CsvParser.irakurriProiekzioenZerrenda(eguna);
+				CardLayout cl = (CardLayout) principal.getLayout();
+				cl.show(principal, "Edukia");
+			}
+		});
 		txtInfoEgunAutaketa.setBackground(UIManager.getColor("menu"));
 		egunAutaketa.add(txtInfoEgunAutaketa, "cell 1 2 2 1,alignx center,growy");
 
