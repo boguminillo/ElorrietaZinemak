@@ -374,6 +374,7 @@ public class GUI {
 				cl.show(principal, "OngiEtorria");
 				txtLoginErabiltzailea.setText("");
 				passwordFieldLogin.setText("");
+				//TODO 
 			}
 
 		});
