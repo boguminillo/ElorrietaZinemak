@@ -37,7 +37,7 @@ public class CsvParser {
 				filma.setPegi(Integer.parseInt(valioak[5]));
 				filma.setGeneroa(valioak[6]);
 				return filma;
-			case "Dokumentala":
+			case "Dokumentala": //TODO ERROR AL LEER CSV POR NOMBRE (SOMOS GILI... :D)
 				Dokumentala dokumentala = new Dokumentala();
 				dokumentala.setId(Integer.parseInt(valioak[1]));
 				dokumentala.setIzenburua(valioak[2]);
