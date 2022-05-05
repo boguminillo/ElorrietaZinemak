@@ -2,14 +2,18 @@ package front;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
+import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
+import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -23,6 +27,7 @@ import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
+import javax.swing.border.Border;
 import javax.swing.table.DefaultTableModel;
 
 import back.CsvParser;
@@ -97,7 +102,30 @@ public class GUI {
 				cl.show(principal, "Sarrera");
 			}
 		});
+		
+		
+		/*OngiEtorri Argazkia*/
+
+		ImageIcon ongietorriArgazkia = new ImageIcon("assets/ongietorri.jpg");
+		ImageIcon logoa = new ImageIcon("assets/ElorrietaZinemak.svg");
+		
+		JLabel lblIconOngiEtorri = new JLabel();
+		lblIconOngiEtorri.setText("OngiEtorri!!");
+		lblIconOngiEtorri.setIcon(ongietorriArgazkia);
+		lblIconOngiEtorri.setHorizontalTextPosition(JLabel.CENTER);
+		lblIconOngiEtorri.setVerticalTextPosition(JLabel.TOP);
+		lblIconOngiEtorri.setForeground(new Color(0x00FF00));
+		lblIconOngiEtorri.setIconTextGap(15);
+		lblIconOngiEtorri.setBackground(Color.black);
+		lblIconOngiEtorri.setOpaque(true);
+		lblIconOngiEtorri.setVerticalAlignment(JLabel.CENTER);
+		lblIconOngiEtorri.setHorizontalAlignment(JLabel.CENTER);
+		
 		principal.add(ongiEtorria, "OngiEtorria");
+		ongiEtorria.setVisible(true);
+		ongiEtorria.setLayout(new BorderLayout(0, 0));
+		ongiEtorria.add(lblIconOngiEtorri);
+
 
 		JTabbedPane sarrera = new JTabbedPane(JTabbedPane.TOP);
 		principal.add(sarrera, "Sarrera");
