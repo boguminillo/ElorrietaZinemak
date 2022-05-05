@@ -56,7 +56,7 @@ public class GUI {
 	private JTable tableEdukiaFilmak;
 	private JTable tableEdukiaDokumentalak;
 	private JTable tableEdukiaFilmLaburrak;
-	private ArrayList<Proiekzioa> proiekzioak = CsvParser.irakurriProiekzioenZerrenda("proiekzioak");
+	private ArrayList<Proiekzioa> proiekzioak = CsvParser.irakurriProiekzioenZerrenda("datuak/proiekzioak");
 	private ArrayList<Proiekzioa> egunekoProiekzioak = CsvParser.irakurriProiekzioenZerrenda("datuak/ASTELEHENA");
 
 	/**
@@ -277,11 +277,12 @@ public class GUI {
 		egunAutaketa.add(lblEgunaAukeratu, "cell 1 1,alignx trailing");
 
 		JTextArea txtInfoEgunAutaketa = new JTextArea();
+		txtInfoEgunAutaketa.setEditable(false);
 		txtInfoEgunAutaketa.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				String eguna = (String) comboBoxEgunAutaketa.getSelectedItem();
-				egunekoProiekzioak = CsvParser.irakurriProiekzioenZerrenda(eguna);
+				String eguna = comboBoxEgunAutaketa.getSelectedItem().toString();
+				egunekoProiekzioak = CsvParser.irakurriProiekzioenZerrenda("datuak/" + eguna);
 				CardLayout cl = (CardLayout) principal.getLayout();
 				cl.show(principal, "Edukia");
 			}
@@ -292,8 +293,9 @@ public class GUI {
 		comboBoxEgunAutaketa = new JComboBox();
 		comboBoxEgunAutaketa.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
-				//TODO
-				txtInfoEgunAutaketa.setText(egunekoProiekzioak.toString());
+				String eguna = comboBoxEgunAutaketa.getSelectedItem().toString();
+				egunekoProiekzioak = CsvParser.irakurriProiekzioenZerrenda("datuak/" + eguna);
+				Erabilgarriak.egunaAukeratu(egunekoProiekzioak, txtInfoEgunAutaketa, eguna);
 			}
 		});
 		comboBoxEgunAutaketa.setModel(new DefaultComboBoxModel(Egunak.values()));
