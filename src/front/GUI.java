@@ -40,10 +40,11 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
+import java.awt.Toolkit;
 
 public class GUI {
 
-	private JFrame frame;
+	private JFrame frmElorrietaZinema;
 	private JTextField txtLoginErabiltzailea;
 	private JPasswordField passwordFieldLogin;
 	private JTextField txtErregistroJaiotzeData;
@@ -67,7 +68,7 @@ public class GUI {
 			public void run() {
 				try {
 					GUI window = new GUI();
-					window.frame.setVisible(true);
+					window.frmElorrietaZinema.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -86,12 +87,13 @@ public class GUI {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frame = new JFrame();
-		frame.setBounds(100, 100, 640, 480);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmElorrietaZinema = new JFrame();
+		frmElorrietaZinema.setTitle("Elorrieta Zinema");
+		frmElorrietaZinema.setBounds(100, 100, 640, 480);
+		frmElorrietaZinema.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		JPanel principal = new JPanel();
-		frame.getContentPane().add(principal, BorderLayout.CENTER);
+		frmElorrietaZinema.getContentPane().add(principal, BorderLayout.CENTER);
 		principal.setLayout(new CardLayout(0, 0));
 
 		JPanel ongiEtorria = new JPanel();
@@ -102,30 +104,30 @@ public class GUI {
 				cl.show(principal, "Sarrera");
 			}
 		});
-		
-		
-		/*OngiEtorri Argazkia*/
+
+		/* OngiEtorri Argazkia */
 
 		ImageIcon ongietorriArgazkia = new ImageIcon("assets/ongietorri.jpg");
-		ImageIcon logoa = new ImageIcon("assets/ElorrietaZinemak.svg");
-		
+		// TODO Tenemos que poner el logo en el ongietorria (editar con inkscape)
+
 		JLabel lblIconOngiEtorri = new JLabel();
-		lblIconOngiEtorri.setText("OngiEtorri!!");
+		Font font = new Font("Agency FB", Font.BOLD, 36);
+		lblIconOngiEtorri.setText("Ongi Etorri Elorrieta Zinemara!!");
 		lblIconOngiEtorri.setIcon(ongietorriArgazkia);
 		lblIconOngiEtorri.setHorizontalTextPosition(JLabel.CENTER);
 		lblIconOngiEtorri.setVerticalTextPosition(JLabel.TOP);
-		lblIconOngiEtorri.setForeground(new Color(0x00FF00));
+		lblIconOngiEtorri.setForeground(new Color(255, 255, 255));
+		lblIconOngiEtorri.setFont(font);
 		lblIconOngiEtorri.setIconTextGap(15);
 		lblIconOngiEtorri.setBackground(Color.black);
 		lblIconOngiEtorri.setOpaque(true);
 		lblIconOngiEtorri.setVerticalAlignment(JLabel.CENTER);
 		lblIconOngiEtorri.setHorizontalAlignment(JLabel.CENTER);
-		
+
 		principal.add(ongiEtorria, "OngiEtorria");
 		ongiEtorria.setVisible(true);
 		ongiEtorria.setLayout(new BorderLayout(0, 0));
 		ongiEtorria.add(lblIconOngiEtorri);
-
 
 		JTabbedPane sarrera = new JTabbedPane(JTabbedPane.TOP);
 		principal.add(sarrera, "Sarrera");
@@ -148,12 +150,29 @@ public class GUI {
 		passwordFieldLogin = new JPasswordField();
 		login.add(passwordFieldLogin, "cell 2 2,growx");
 
+		JPanel register = new JPanel();
+		sarrera.addTab("Erregistroa", null, register, null);
+		register.setLayout(new MigLayout("", "[grow][right][left][grow,right]", "[grow][][][][][][][][grow][]"));
+
+		JComboBox comboBoxErregistroFuntzioak = new JComboBox();
+		comboBoxErregistroFuntzioak.setModel(new DefaultComboBoxModel(Funtzioak.values()));
+		register.add(comboBoxErregistroFuntzioak, "cell 2 7,growx");
+
 		JButton btnLoginHasiera = new JButton("← Hasiera");
 		btnLoginHasiera.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				CardLayout cl = (CardLayout) principal.getLayout();
 				cl.show(principal, "OngiEtorria");
+				txtLoginErabiltzailea.setText("");
+				passwordFieldLogin.setText("");
+				txtErregistroErabiltzailea.setText("");
+				passwordFieldErregistro.setText("");
+				passwordFieldErregistroErrepikatu.setText("");
+				txtErregistroIzena.setText("");
+				txtErregistroAbizenak.setText("");
+				txtErregistroJaiotzeData.setText("");
+				comboBoxErregistroFuntzioak.setSelectedIndex(0);
 			}
 		});
 		login.add(btnLoginHasiera, "cell 0 4,alignx left");
@@ -166,18 +185,16 @@ public class GUI {
 				erabiltzailea.setLogin(txtLoginErabiltzailea.getText());
 				erabiltzailea.setPasahitza(new String(passwordFieldLogin.getPassword()));
 				if (erabiltzailea.login()) {
-					comboBoxEgunAutaketa.setSelectedIndex(0);
 					CardLayout cl = (CardLayout) principal.getLayout();
 					cl.show(principal, "EgunAutaketa");
+					// TODO Explicar lo de abajo lel
+					comboBoxEgunAutaketa.setSelectedIndex(1);
+					comboBoxEgunAutaketa.setSelectedIndex(0);
 				} else if (!erabiltzailea.login())
 					JOptionPane.showMessageDialog(null, "Erabiltzailea edota pasahitza txarto idatzita daude.");
 			}
 		});
 		login.add(btnLoginJarraitu, "cell 3 4,alignx right");
-
-		JPanel register = new JPanel();
-		sarrera.addTab("Erregistroa", null, register, null);
-		register.setLayout(new MigLayout("", "[grow][right][left][grow,right]", "[grow][][][][][][][][grow][]"));
 
 		JLabel lblErregistroErabiltzailea = new JLabel("Erabiltzailea:");
 		register.add(lblErregistroErabiltzailea, "cell 1 1,alignx trailing");
@@ -222,10 +239,6 @@ public class GUI {
 		JLabel lblErregistroFuntzioa = new JLabel("Funtzioa:");
 		register.add(lblErregistroFuntzioa, "cell 1 7,alignx trailing");
 
-		JComboBox comboBoxErregistroFuntzioak = new JComboBox();
-		comboBoxErregistroFuntzioak.setModel(new DefaultComboBoxModel(Funtzioak.values()));
-		register.add(comboBoxErregistroFuntzioak, "cell 2 7,growx");
-
 		JButton btnErregistratu = new JButton("Erregistratu");
 		btnErregistratu.addMouseListener(new MouseAdapter() {
 			@Override
@@ -245,9 +258,9 @@ public class GUI {
 				Funtzioak funtzioa = (Funtzioak) comboBoxErregistroFuntzioak.getSelectedItem();
 				if (!pasahitza.equals(pasahitzaErrepikatu)) {
 					JOptionPane.showMessageDialog(null, "Pasahitzak ez dira berdinak.");
-				} else if(login.isBlank() || pasahitza.isBlank() || izena.isBlank() || abizenak.isBlank()) {
+				} else if (login.isBlank() || pasahitza.isBlank() || izena.isBlank() || abizenak.isBlank()) {
 					JOptionPane.showMessageDialog(null, "Eremu guztiak bete behar dira.");
-				} else if(jaiotzeData.isAfter(LocalDate.now())){
+				} else if (jaiotzeData.isAfter(LocalDate.now())) {
 					JOptionPane.showMessageDialog(null, "Jaiotze data ez da zuzena.");
 				} else {
 					Erabiltzailea erabiltzailea = new Erabiltzailea();
@@ -265,6 +278,13 @@ public class GUI {
 						sarrera.setSelectedIndex(0);
 					}
 				}
+				txtErregistroErabiltzailea.setText("");
+				passwordFieldErregistro.setText("");
+				passwordFieldErregistroErrepikatu.setText("");
+				txtErregistroIzena.setText("");
+				txtErregistroAbizenak.setText("");
+				txtErregistroJaiotzeData.setText("");
+				comboBoxErregistroFuntzioak.setSelectedIndex(0);
 			}
 		});
 		register.add(btnErregistratu, "cell 3 9");
@@ -320,6 +340,15 @@ public class GUI {
 			public void mouseClicked(MouseEvent e) {
 				CardLayout cl = (CardLayout) principal.getLayout();
 				cl.show(principal, "OngiEtorria");
+				txtLoginErabiltzailea.setText("");
+				passwordFieldLogin.setText("");
+				txtErregistroErabiltzailea.setText("");
+				passwordFieldErregistro.setText("");
+				passwordFieldErregistroErrepikatu.setText("");
+				txtErregistroIzena.setText("");
+				txtErregistroAbizenak.setText("");
+				txtErregistroJaiotzeData.setText("");
+				comboBoxErregistroFuntzioak.setSelectedIndex(0);
 			}
 		});
 		egunAutaketa.add(btnEgunAutaketaHasiera, "cell 0 4");
@@ -428,6 +457,9 @@ public class GUI {
 			public void mouseClicked(MouseEvent e) {
 				CardLayout cl = (CardLayout) principal.getLayout();
 				cl.show(principal, "EgunAutaketa");
+				// TODO Explicar lo de abajo lel
+				comboBoxEgunAutaketa.setSelectedIndex(1);
+				comboBoxEgunAutaketa.setSelectedIndex(0);
 			}
 		});
 		egunLaburpena.add(btnEgunLaburpenaBaieztatu, "cell 3 4,alignx right");
@@ -442,6 +474,9 @@ public class GUI {
 			public void mouseClicked(MouseEvent e) {
 				CardLayout cl = (CardLayout) principal.getLayout();
 				cl.show(principal, "EgunAutaketa");
+				// TODO Explicar lo de abajo lel
+				comboBoxEgunAutaketa.setSelectedIndex(1);
+				comboBoxEgunAutaketa.setSelectedIndex(0);
 			}
 		});
 		asteLaburpena.add(btnAsteLaburpenaEgunAutaketa, "cell 2 4");
@@ -457,7 +492,14 @@ public class GUI {
 				cl.show(principal, "OngiEtorria");
 				txtLoginErabiltzailea.setText("");
 				passwordFieldLogin.setText("");
-				//TODO 
+				txtErregistroErabiltzailea.setText("");
+				passwordFieldErregistro.setText("");
+				passwordFieldErregistroErrepikatu.setText("");
+				txtErregistroIzena.setText("");
+				txtErregistroAbizenak.setText("");
+				txtErregistroJaiotzeData.setText("");
+				comboBoxErregistroFuntzioak.setSelectedIndex(0);
+				// TODO
 			}
 
 		});
