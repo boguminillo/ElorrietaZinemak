@@ -86,8 +86,7 @@ public class Erabilgarriak {
 		}
 	}
 
-	public static ArrayList<Proiekzioa> taulaToArrayList(JTable taula, String mota) {
-		DefaultTableModel modelo = (DefaultTableModel) taula.getModel();
+	public static ArrayList<Proiekzioa> taulaToArrayList(DefaultTableModel modelo, String mota) {
 		ArrayList<Proiekzioa> proiekzioak = new ArrayList<>();
 		for (int i = 0; i < modelo.getRowCount(); i++) {
 			int id = (Integer) modelo.getValueAt(i, 0);
