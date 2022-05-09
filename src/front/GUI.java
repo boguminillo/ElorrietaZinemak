@@ -486,7 +486,7 @@ public class GUI {
 		btnBaieztapenaBukatu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				CardLayout cl = (CardLayout) principal.getLayout();
-				cl.show(principal, "OngiEtorria");
+				JOptionPane.showMessageDialog(null, "Dena ondo gorde da.");
 				txtLoginErabiltzailea.setText("");
 				passwordFieldLogin.setText("");
 				txtErregistroErabiltzailea.setText("");
@@ -497,6 +497,8 @@ public class GUI {
 				txtErregistroJaiotzeData.setText("");
 				comboBoxErregistroFuntzioak.setSelectedIndex(0);
 				// TODO
+				cl.show(principal, "OngiEtorria");
+				
 			}
 
 		});
@@ -507,5 +509,8 @@ public class GUI {
 		JLabel lblBaieztapena = new JLabel("New label");
 		baieztapena.add(lblBaieztapena, "cell 2 1,alignx center,aligny bottom");
 		baieztapena.add(btnBaieztapenaBukatu, "cell 2 2,alignx center,aligny top");
+        
+
+		
 	}
 }
