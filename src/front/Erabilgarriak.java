@@ -189,7 +189,7 @@ public class Erabilgarriak {
 	}
 
 	public static void listaBete(JList<String> listaEdukiEgunarenLaburpena, ArrayList<Proiekzioa> egunekoProiekzioak) {
-		DefaultListModel modelo = new DefaultListModel();
+		DefaultListModel<String> modelo = new DefaultListModel<String>();
 		for (Proiekzioa p : egunekoProiekzioak) {
 			modelo.addElement(p.toLaburpenTestua());
 		}
@@ -202,7 +202,7 @@ public class Erabilgarriak {
 
 		if (index != -1) {
 			// documentar error, no se puede eliminar la fila de la lista, hay que hacerlo con el modelo
-			DefaultListModel<String> modelo = (DefaultListModel) lista.getModel();
+			DefaultListModel<String> modelo = (DefaultListModel<String>) lista.getModel();
 			modelo.remove(index);
 		}
 
@@ -216,7 +216,7 @@ public class Erabilgarriak {
 	}
 
 	public static void egunLaburpenaBete(JList<String> listaEdukiEgunarenLaburpena, ArrayList<Proiekzioa> egunekoProiekzioak, String eguna) {
-		DefaultListModel<String> modelo = new DefaultListModel();
+		DefaultListModel<String> modelo = new DefaultListModel<String>();
 		LocalTime ordua = LocalTime.of(16, 0, 0);
 		String str = "";
 		for (Proiekzioa p : egunekoProiekzioak) {

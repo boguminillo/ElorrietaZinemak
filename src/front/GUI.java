@@ -6,8 +6,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.MouseAdapter;
@@ -317,11 +315,11 @@ public class GUI {
 					cl.show(principal, "EgunLaburpena");
 					Erabilgarriak.egunLaburpenaBete(listEgunLaburpena, egunekoProiekzioak, eguna);
 				} else {
-				Erabilgarriak.listaBete(listaEdukiEgunarenLaburpena, egunekoProiekzioak);
-				lblEdukiaDenboraLibre
-						.setText("Denbora librea: " + denbora);
-				CardLayout cl = (CardLayout) principal.getLayout();
-				cl.show(principal, "Edukia");
+					Erabilgarriak.listaBete(listaEdukiEgunarenLaburpena, egunekoProiekzioak);
+					lblEdukiaDenboraLibre
+							.setText("Denbora librea: " + denbora);
+					CardLayout cl = (CardLayout) principal.getLayout();
+					cl.show(principal, "Edukia");
 				}
 			}
 		});
@@ -338,16 +336,6 @@ public class GUI {
 		});
 		comboBoxEgunAutaketa.setModel(new DefaultComboBoxModel(Egunak.values()));
 		egunAutaketa.add(comboBoxEgunAutaketa, "cell 2 1,growx");
-
-		JButton btnEgunAutaketaAsteLaburpena = new JButton("Aste Laburpena");
-		btnEgunAutaketaAsteLaburpena.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				CardLayout cl = (CardLayout) principal.getLayout();
-				cl.show(principal, "AsteLaburpena");
-			}
-		});
-		egunAutaketa.add(btnEgunAutaketaAsteLaburpena, "cell 2 3");
 
 		JButton btnEgunAutaketaHasiera = new JButton("← Hasiera");
 		btnEgunAutaketaHasiera.addMouseListener(new MouseAdapter() {
@@ -668,18 +656,118 @@ public class GUI {
 		listEgunLaburpena.addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent e) {
 				String izenburua = listEgunLaburpena.getSelectedValue()
-						.substring(0, listEgunLaburpena.getSelectedValue().indexOf(" - ")).trim();
+				.substring(0, listEgunLaburpena.getSelectedValue().indexOf(" - ")).trim();
 				Proiekzioa proiekzioa = Erabilgarriak.proiekzioaLortu(izenburua, egunekoProiekzioak);
 				JOptionPane.showMessageDialog(null, proiekzioa.toTestua());
 			}
 		});
-
+		
 		egunLaburpena.add(listEgunLaburpena, "cell 1 1,grow");
 		egunLaburpena.add(btnEgunLaburpenaBaieztatu, "cell 2 3,alignx right");
-
+		
 		JPanel asteLaburpena = new JPanel();
-		principal.add(asteLaburpena, "AsteLaburpena");
-		asteLaburpena.setLayout(new MigLayout("", "[grow][right][center][][grow]", "[grow][bottom][top][grow][]"));
+		// documentar que esta pantalla no se veia bien por el tamaño y se soluciono con el jscrollpane
+		JScrollPane scrollPaneAsteLaburpena = new JScrollPane(asteLaburpena);
+		principal.add(scrollPaneAsteLaburpena, "AsteLaburpena");
+		asteLaburpena.setLayout(new MigLayout("", "[grow][][][][][][][][grow]", "[grow][bottom][][][grow][]"));
+		
+		JLabel lblAstelehena = new JLabel("Astelehena");
+		asteLaburpena.add(lblAstelehena, "cell 1 1");
+		
+		JLabel lblAsteartea = new JLabel("Asteartea");
+		asteLaburpena.add(lblAsteartea, "cell 2 1");
+
+		JLabel lblAsteazkena = new JLabel("Asteazkena");
+		asteLaburpena.add(lblAsteazkena, "cell 3 1");
+
+		JLabel lblOsteguna = new JLabel("Osteguna");
+		asteLaburpena.add(lblOsteguna, "cell 4 1");
+
+		JLabel lblOstirala = new JLabel("Ostirala");
+		asteLaburpena.add(lblOstirala, "cell 5 1");
+
+		JLabel lblLarunbata = new JLabel("Larunbata");
+		asteLaburpena.add(lblLarunbata, "cell 6 1");
+
+		JLabel lblIgandea = new JLabel("Igandea");
+		asteLaburpena.add(lblIgandea, "cell 7 1");
+
+		JList<String> listAstelehena = new JList<String>();
+		listAstelehena.addListSelectionListener(new ListSelectionListener() {
+			public void valueChanged(ListSelectionEvent e) {
+				String izenburua = listAstelehena.getSelectedValue()
+						.substring(0, listAstelehena.getSelectedValue().indexOf(" - ")).trim();
+				Proiekzioa proiekzioa = Erabilgarriak.proiekzioaLortu(izenburua, proiekzioak);
+				JOptionPane.showMessageDialog(null, proiekzioa.toTestua());
+			}
+		});
+		asteLaburpena.add(listAstelehena, "cell 1 2,grow");
+
+		JList<String> listAsteartea = new JList<String>();
+		listAsteartea.addListSelectionListener(new ListSelectionListener() {
+			public void valueChanged(ListSelectionEvent e) {
+				String izenburua = listAsteartea.getSelectedValue()
+						.substring(0, listAsteartea.getSelectedValue().indexOf(" - ")).trim();
+				Proiekzioa proiekzioa = Erabilgarriak.proiekzioaLortu(izenburua, proiekzioak);
+				JOptionPane.showMessageDialog(null, proiekzioa.toTestua());
+			}
+		});
+		asteLaburpena.add(listAsteartea, "cell 2 2,grow");
+
+		JList<String> listAsteazkena = new JList<String>();
+		listAsteazkena.addListSelectionListener(new ListSelectionListener() {
+			public void valueChanged(ListSelectionEvent e) {
+				String izenburua = listAsteazkena.getSelectedValue()
+						.substring(0, listAsteazkena.getSelectedValue().indexOf(" - ")).trim();
+				Proiekzioa proiekzioa = Erabilgarriak.proiekzioaLortu(izenburua, proiekzioak);
+				JOptionPane.showMessageDialog(null, proiekzioa.toTestua());
+			}
+		});
+		asteLaburpena.add(listAsteazkena, "cell 3 2,grow");
+
+		JList<String> listOsteguna = new JList<String>();
+		listOsteguna.addListSelectionListener(new ListSelectionListener() {
+			public void valueChanged(ListSelectionEvent e) {
+				String izenburua = listOsteguna.getSelectedValue()
+						.substring(0, listOsteguna.getSelectedValue().indexOf(" - ")).trim();
+				Proiekzioa proiekzioa = Erabilgarriak.proiekzioaLortu(izenburua, proiekzioak);
+				JOptionPane.showMessageDialog(null, proiekzioa.toTestua());
+			}
+		});
+		asteLaburpena.add(listOsteguna, "cell 4 2,grow");
+
+		JList<String> listOstirala = new JList<String>();
+		listOstirala.addListSelectionListener(new ListSelectionListener() {
+			public void valueChanged(ListSelectionEvent e) {
+				String izenburua = listOstirala.getSelectedValue()
+						.substring(0, listOstirala.getSelectedValue().indexOf(" - ")).trim();
+				Proiekzioa proiekzioa = Erabilgarriak.proiekzioaLortu(izenburua, proiekzioak);
+				JOptionPane.showMessageDialog(null, proiekzioa.toTestua());
+			}
+		});
+		asteLaburpena.add(listOstirala, "cell 5 2,grow");
+
+		JList<String> listLarunbata = new JList<String>();
+		listLarunbata.addListSelectionListener(new ListSelectionListener() {
+			public void valueChanged(ListSelectionEvent e) {
+				String izenburua = listLarunbata.getSelectedValue()
+						.substring(0, listLarunbata.getSelectedValue().indexOf(" - ")).trim();
+				Proiekzioa proiekzioa = Erabilgarriak.proiekzioaLortu(izenburua, proiekzioak);
+				JOptionPane.showMessageDialog(null, proiekzioa.toTestua());
+			}
+		});
+		asteLaburpena.add(listLarunbata, "cell 6 2,grow");
+
+		JList<String> listIgandea = new JList<String>();
+		listIgandea.addListSelectionListener(new ListSelectionListener() {
+			public void valueChanged(ListSelectionEvent e) {
+				String izenburua = listIgandea.getSelectedValue()
+						.substring(0, listIgandea.getSelectedValue().indexOf(" - ")).trim();
+				Proiekzioa proiekzioa = Erabilgarriak.proiekzioaLortu(izenburua, proiekzioak);
+				JOptionPane.showMessageDialog(null, proiekzioa.toTestua());
+			}
+		});
+		asteLaburpena.add(listIgandea, "cell 7 2,grow");
 
 		JButton btnAsteLaburpenaEgunAutaketa = new JButton("Egun Autaketa");
 		btnAsteLaburpenaEgunAutaketa.addMouseListener(new MouseAdapter() {
@@ -692,8 +780,74 @@ public class GUI {
 				comboBoxEgunAutaketa.setSelectedIndex(0);
 			}
 		});
-		asteLaburpena.add(btnAsteLaburpenaEgunAutaketa, "cell 2 4");
 
+		JLabel lblDenboraAstelehena = new JLabel("Denbora");
+		asteLaburpena.add(lblDenboraAstelehena, "cell 1 3");
+
+		JLabel lblDenboraAsteartea = new JLabel("Denbora");
+		asteLaburpena.add(lblDenboraAsteartea, "cell 2 3");
+
+		JLabel lblDenboraAsteazkena = new JLabel("Denbora");
+		asteLaburpena.add(lblDenboraAsteazkena, "cell 3 3");
+
+		JLabel lblDenboraOsteguna = new JLabel("Denbora");
+		asteLaburpena.add(lblDenboraOsteguna, "cell 4 3");
+
+		JLabel lblDenboraOstirala = new JLabel("Denbora");
+		asteLaburpena.add(lblDenboraOstirala, "cell 5 3");
+
+		JLabel lblDenboraLarunbata = new JLabel("Denbora");
+		asteLaburpena.add(lblDenboraLarunbata, "cell 6 3");
+
+		JLabel lblDenboraIgandea = new JLabel("Denbora");
+		asteLaburpena.add(lblDenboraIgandea, "cell 7 3");
+		asteLaburpena.add(btnAsteLaburpenaEgunAutaketa, "cell 4 5");
+
+		JButton btnEgunAutaketaAsteLaburpena = new JButton("Aste Laburpena");
+		btnEgunAutaketaAsteLaburpena.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				eguna = Egunak.ASTELEHENA.toString();
+				egunekoProiekzioak = CsvParser.irakurriProiekzioenZerrenda("datuak/" + eguna);
+				Erabilgarriak.egunLaburpenaBete(listAstelehena, egunekoProiekzioak, eguna);
+				lblDenboraAstelehena.setText("Denbora librea: " + Erabilgarriak.denboraLibre(egunekoProiekzioak, eguna));
+
+				eguna = Egunak.ASTEARTEA.toString();
+				egunekoProiekzioak = CsvParser.irakurriProiekzioenZerrenda("datuak/" + eguna);
+				Erabilgarriak.egunLaburpenaBete(listAsteartea, egunekoProiekzioak, eguna);
+				lblDenboraAsteartea.setText("Denbora librea: " + Erabilgarriak.denboraLibre(egunekoProiekzioak, eguna));
+
+				eguna = Egunak.ASTEAZKENA.toString();
+				egunekoProiekzioak = CsvParser.irakurriProiekzioenZerrenda("datuak/" + eguna);
+				Erabilgarriak.egunLaburpenaBete(listAsteazkena, egunekoProiekzioak, eguna);
+				lblDenboraAsteazkena.setText("Denbora librea: " + Erabilgarriak.denboraLibre(egunekoProiekzioak, eguna));
+
+				eguna = Egunak.OSTEGUNA.toString();
+				egunekoProiekzioak = CsvParser.irakurriProiekzioenZerrenda("datuak/" + eguna);
+				Erabilgarriak.egunLaburpenaBete(listOsteguna, egunekoProiekzioak, eguna);
+				lblDenboraOsteguna.setText("Denbora librea: " + Erabilgarriak.denboraLibre(egunekoProiekzioak, eguna));
+
+				eguna = Egunak.OSTIRALA.toString();
+				egunekoProiekzioak = CsvParser.irakurriProiekzioenZerrenda("datuak/" + eguna);
+				Erabilgarriak.egunLaburpenaBete(listOstirala, egunekoProiekzioak, eguna);
+				lblDenboraOstirala.setText("Denbora librea: " + Erabilgarriak.denboraLibre(egunekoProiekzioak, eguna));
+
+				eguna = Egunak.LARUNBATA.toString();
+				egunekoProiekzioak = CsvParser.irakurriProiekzioenZerrenda("datuak/" + eguna);
+				Erabilgarriak.egunLaburpenaBete(listLarunbata, egunekoProiekzioak, eguna);
+				lblDenboraLarunbata.setText("Denbora librea: " + Erabilgarriak.denboraLibre(egunekoProiekzioak, eguna));
+
+				eguna = Egunak.IGANDEA.toString();
+				egunekoProiekzioak = CsvParser.irakurriProiekzioenZerrenda("datuak/" + eguna);
+				Erabilgarriak.egunLaburpenaBete(listIgandea, egunekoProiekzioak, eguna);
+				lblDenboraIgandea.setText("Denbora librea: " + Erabilgarriak.denboraLibre(egunekoProiekzioak, eguna));
+				
+				CardLayout cl = (CardLayout) principal.getLayout();
+				cl.show(principal, "AsteLaburpena");
+			}
+		});
+		egunAutaketa.add(btnEgunAutaketaAsteLaburpena, "cell 2 3");
+		
 	}
-	
+
 }
