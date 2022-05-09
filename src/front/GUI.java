@@ -31,6 +31,8 @@ import javax.swing.table.DefaultTableModel;
 import back.CsvParser;
 import back.objektuak.Egunak;
 import back.objektuak.Erabiltzailea;
+import back.objektuak.FilmLaburra;
+import back.objektuak.FilmLuzea;
 import back.objektuak.Funtzioak;
 import back.objektuak.Proiekzioa;
 import net.miginfocom.swing.MigLayout;
@@ -184,7 +186,8 @@ public class GUI {
 				if (erabiltzailea.login()) {
 					CardLayout cl = (CardLayout) principal.getLayout();
 					cl.show(principal, "EgunAutaketa");
-					// TODO Explicar lo de abajo lel
+					// Hacemos dos cambios para asegurar que se dispare el evento que mostrara el
+					// resumen del dia
 					comboBoxEgunAutaketa.setSelectedIndex(1);
 					comboBoxEgunAutaketa.setSelectedIndex(0);
 				} else if (!erabiltzailea.login())
@@ -373,7 +376,8 @@ public class GUI {
 
 		tableEdukiaFilmak = new JTable();
 		scrollPaneEdukiaFilmak.setViewportView(tableEdukiaFilmak);
-		tableEdukiaFilmak.setModel(new DefaultTableModel(new Object[][] {},
+
+		DefaultTableModel modelPanelEdikuaFilmak = new DefaultTableModel(new Object[][] {},
 				new String[] { "ID", "Izenburua", "Iraupena", "Produktora", "PEGI", "Genero" }) {
 			Class[] columnTypes = new Class[] { Integer.class, String.class, Integer.class, String.class, Integer.class,
 					Object.class };
@@ -381,7 +385,9 @@ public class GUI {
 			public Class getColumnClass(int columnIndex) {
 				return columnTypes[columnIndex];
 			}
-		});
+		};
+		tableEdukiaFilmak.setModel(modelPanelEdikuaFilmak);
+		Erabilgarriak.tablaEdukia(modelPanelEdikuaFilmak, proiekzioak, Erabilgarriak.FILMA);
 
 		JButton btnEdukiaEzabatuFilma = new JButton("Ezabatu");
 		edukia.add(btnEdukiaEzabatuFilma, "cell 1 3");
@@ -400,14 +406,16 @@ public class GUI {
 
 		tableEdukiaFilmLaburrak = new JTable();
 		scrollPaneEdukiaFilmLaburrak.setViewportView(tableEdukiaFilmLaburrak);
-		tableEdukiaFilmLaburrak.setModel(
-				new DefaultTableModel(new Object[][] {}, new String[] { "ID", "Izenburua", "Iraupena", "Fabula" }) {
-					Class[] columnTypes = new Class[] { Integer.class, String.class, Integer.class, String.class };
+		DefaultTableModel modelPanelEdikuaFilmLaburrak = new DefaultTableModel(new Object[][] {},
+				new String[] { "ID", "Izenburua", "Iraupena", "Fabula" }) {
+			Class[] columnTypes = new Class[] { Integer.class, String.class, Integer.class, String.class };
 
-					public Class getColumnClass(int columnIndex) {
-						return columnTypes[columnIndex];
-					}
-				});
+			public Class getColumnClass(int columnIndex) {
+				return columnTypes[columnIndex];
+			}
+		};
+		tableEdukiaFilmLaburrak.setModel(modelPanelEdikuaFilmLaburrak);
+		Erabilgarriak.tablaEdukia(modelPanelEdikuaFilmLaburrak, proiekzioak, Erabilgarriak.FILMLABURRA);
 
 		JButton btnEdukiaEzabatuFilmaL = new JButton("Ezabatu");
 		edukia.add(btnEdukiaEzabatuFilmaL, "cell 1 7,growx");
@@ -426,14 +434,16 @@ public class GUI {
 
 		tableEdukiaDokumentalak = new JTable();
 		scrollPaneEdukiaDokumentalak.setViewportView(tableEdukiaDokumentalak);
-		tableEdukiaDokumentalak.setModel(
-				new DefaultTableModel(new Object[][] {}, new String[] { "ID", "Izenburua", "Iraupena", "Tema" }) {
-					Class[] columnTypes = new Class[] { Integer.class, String.class, Integer.class, Object.class };
+		DefaultTableModel modelPanelEdikuaDokumentalak = new DefaultTableModel(new Object[][] {},
+				new String[] { "ID", "Izenburua", "Iraupena", "Tema" }) {
+			Class[] columnTypes = new Class[] { Integer.class, String.class, Integer.class, Object.class };
 
-					public Class getColumnClass(int columnIndex) {
-						return columnTypes[columnIndex];
-					}
-				});
+			public Class getColumnClass(int columnIndex) {
+				return columnTypes[columnIndex];
+			}
+		};
+		tableEdukiaDokumentalak.setModel(modelPanelEdikuaDokumentalak);
+		Erabilgarriak.tablaEdukia(modelPanelEdikuaDokumentalak, proiekzioak, Erabilgarriak.DOKUMENTALA);
 
 		JButton btnEdukiaEzabatuDok = new JButton("Ezabatu");
 		edukia.add(btnEdukiaEzabatuDok, "cell 1 12,growx");

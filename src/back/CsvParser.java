@@ -60,7 +60,7 @@ public class CsvParser {
 	/**
 	 * Proiekzioen zerrenda irakurri
 	 * 
-	 * @param fitxeroa Proiekzioen zerrenda
+	 * @param fitxeroa Proiekzioen zerrenda duen fitxeroa
 	 * @return Proiekzioen zerrenda
 	 */
 	public static ArrayList<Proiekzioa> irakurriProiekzioenZerrenda(String fitxeroa) {
