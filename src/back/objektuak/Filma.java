@@ -74,5 +74,10 @@ public class Filma extends FilmLuzea {
 	public String toString() {
 		return "Filma;" + super.toString() + ";" + pegi + ";" + generoa + "\n";
 	}
+
+	@Override
+	public String toTestua() {
+		return super.toTestua() + "\nPEGI: " + pegi + "\nGeneroa: " + generoa;
+	}
 	
 }

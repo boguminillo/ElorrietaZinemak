@@ -93,12 +93,21 @@ public abstract class Proiekzioa {
 	}
 
 	/**
-	 * Proiekzioaren laburpen textu bezala lortu
+	 * Proiekzioa laburpen testu bezala lortu
 	 * 
-	 * @return Proiekzioaren laburpen textua
+	 * @return Proiekzioaren laburpen testua
 	 */
-	public String toLaburpenTextua(){
+	public String toLaburpenTestua(){
 		return izenburua + " - " +  iraupena + " minutu";
+	}
+
+	/**
+	 * Proiekzioa irakurtzeko testu bezala lortu
+	 * 
+	 * @return Proiekzioaren testua
+	 */
+	public String toTestua(){
+		return "Izenburua: " + izenburua + "\nIraupena: " + iraupena + " min";
 	}
 
 }

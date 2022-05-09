@@ -51,4 +51,9 @@ public abstract class FilmLuzea extends Proiekzioa {
 		return super.toString() + ";" + produktora;
 	}
 	
+	@Override
+	public String toTestua() {
+		return super.toTestua() + "\nProduktora: " + produktora;
+	}
+
 }

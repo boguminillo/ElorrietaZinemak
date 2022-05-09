@@ -53,5 +53,10 @@ public class Dokumentala extends FilmLuzea {
 	public String toString() {
 		return "Dokumentala;" + super.toString() + ";" + tema + "\n";
 	}
+
+	@Override
+	public String toTestua() {
+		return super.toTestua() + "\nTema: " + tema;
+	}
 	
 }

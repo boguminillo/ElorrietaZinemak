@@ -1,5 +1,6 @@
 package front;
 
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -53,7 +54,7 @@ public class Erabilgarriak {
 	}
 
 	public static void tablaEdukia(DefaultTableModel tableModel, ArrayList<Proiekzioa> proiekzioak, String mota) {
-		// documentar error al cancelar los cambios se duplicaba en lugar de reiniciar las tablas, solucionado con la linea de debajo
+		// documentar error al cancelar los cambios se duplicaba en lugar de reiniciar las tablas, solucionado con la linea de debajo`
 		tableModel.setRowCount(0);
 		for (Proiekzioa proiekzioa : proiekzioak) {
 			if (mota.equals(FILMA)) {
@@ -123,7 +124,7 @@ public class Erabilgarriak {
 		String laburpena = "";
 		int denboraLibre = egunDenborak.get(eguna);
 		for (Proiekzioa p : egunekoProiekzioak) {
-			laburpena = laburpena.concat(p.toLaburpenTextua() + "\n");
+			laburpena = laburpena.concat(p.toLaburpenTestua() + "\n");
 			denboraLibre -= p.getIraupena();
 		}
 		laburpena = laburpena.concat("Eguneko denbora librea: " + denboraLibre);
@@ -133,6 +134,15 @@ public class Erabilgarriak {
 	public static Proiekzioa proiekzioaLortu(int id, ArrayList<Proiekzioa> proiekzioak) {
 		for (Proiekzioa p : proiekzioak) {
 			if (p.getId() == id) {
+				return p;
+			}
+		}
+		return null;
+	}
+
+	public static Proiekzioa proiekzioaLortu(String izenburua, ArrayList<Proiekzioa> proiekzioak) {
+		for (Proiekzioa p : proiekzioak) {
+			if (p.getIzenburua().equals(izenburua)) {
 				return p;
 			}
 		}
@@ -178,25 +188,25 @@ public class Erabilgarriak {
 		return id + 1;
 	}
 
-	public static void listaBete(JList listaEdukiEgunarenLaburpena, ArrayList<Proiekzioa> egunekoProiekzioak) {
+	public static void listaBete(JList<String> listaEdukiEgunarenLaburpena, ArrayList<Proiekzioa> egunekoProiekzioak) {
 		DefaultListModel modelo = new DefaultListModel();
 		for (Proiekzioa p : egunekoProiekzioak) {
-			modelo.addElement(p.toLaburpenTextua());
+			modelo.addElement(p.toLaburpenTestua());
 		}
 		listaEdukiEgunarenLaburpena.setModel(modelo);
 	}
 
-	public static void ezabatuFilma(JList lista, ArrayList<Proiekzioa> proiekzioak) {
+	public static void ezabatuFilma(JList<String> lista, ArrayList<Proiekzioa> proiekzioak) {
 		int index = lista.getSelectedIndex();
-		String textua = (String) lista.getSelectedValue();
+		String testua = (String) lista.getSelectedValue();
 
 		if (index != -1) {
 			// documentar error, no se puede eliminar la fila de la lista, hay que hacerlo con el modelo
-			DefaultListModel modelo = (DefaultListModel) lista.getModel();
+			DefaultListModel<String> modelo = (DefaultListModel) lista.getModel();
 			modelo.remove(index);
 		}
 
-		String Izenburua = textua.substring(0, textua.indexOf("-"));
+		String Izenburua = testua.substring(0, testua.indexOf("-"));
 		for (int i = 0; i < proiekzioak.size(); i++) {
 			if (proiekzioak.get(i).getIzenburua().equals(Izenburua.trim())) {
 				proiekzioak.remove(i);
@@ -204,4 +214,19 @@ public class Erabilgarriak {
 			}
 		}
 	}
+
+	public static void egunLaburpenaBete(JList<String> listaEdukiEgunarenLaburpena, ArrayList<Proiekzioa> egunekoProiekzioak, String eguna) {
+		DefaultListModel<String> modelo = new DefaultListModel();
+		LocalTime ordua = LocalTime.of(16, 0, 0);
+		String str = "";
+		for (Proiekzioa p : egunekoProiekzioak) {
+			str = p.toLaburpenTestua();
+			str = str.concat(" - " +ordua.toString());
+			ordua = ordua.plusMinutes(p.getIraupena());
+			str = str.concat(" - " +ordua.toString());
+			modelo.addElement(str);
+		}
+		listaEdukiEgunarenLaburpena.setModel(modelo);
+	}
+
 }
