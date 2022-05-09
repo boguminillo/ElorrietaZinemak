@@ -311,11 +311,18 @@ public class GUI {
 		txtInfoEgunAutaketa.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				int denbora = Erabilgarriak.denboraLibre(egunekoProiekzioak, eguna);
+				if (denbora == 0) {
+					CardLayout cl = (CardLayout) principal.getLayout();
+					cl.show(principal, "EgunLaburpena");
+					Erabilgarriak.egunLaburpenaBete(listEgunLaburpena, egunekoProiekzioak, eguna);
+				} else {
 				Erabilgarriak.listaBete(listaEdukiEgunarenLaburpena, egunekoProiekzioak);
 				lblEdukiaDenboraLibre
-						.setText("Denbora librea: " + Erabilgarriak.denboraLibre(egunekoProiekzioak, eguna));
+						.setText("Denbora librea: " + denbora);
 				CardLayout cl = (CardLayout) principal.getLayout();
 				cl.show(principal, "Edukia");
+				}
 			}
 		});
 		txtInfoEgunAutaketa.setBackground(UIManager.getColor("menu"));
@@ -366,8 +373,19 @@ public class GUI {
 		btnEgunAutaketaBaieztatu.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				CsvParser.idatziProiekzioenZerrenda("datuak/proiekzioak", proiekzioak);
+				JOptionPane.showMessageDialog(null, "Proiekzioak ondo gorde dira.");
 				CardLayout cl = (CardLayout) principal.getLayout();
-				cl.show(principal, "Baieztapena");
+				cl.show(principal, "Sarrera");
+				txtLoginErabiltzailea.setText("");
+				passwordFieldLogin.setText("");
+				txtErregistroErabiltzailea.setText("");
+				passwordFieldErregistro.setText("");
+				passwordFieldErregistroErrepikatu.setText("");
+				txtErregistroIzena.setText("");
+				txtErregistroAbizenak.setText("");
+				txtErregistroJaiotzeData.setText("");
+				comboBoxErregistroFuntzioak.setSelectedIndex(0);
 			}
 		});
 		egunAutaketa.add(btnEgunAutaketaBaieztatu, "cell 3 4");
@@ -676,37 +694,6 @@ public class GUI {
 		});
 		asteLaburpena.add(btnAsteLaburpenaEgunAutaketa, "cell 2 4");
 
-		JPanel baieztapena = new JPanel();
-		principal.add(baieztapena, "Baieztapena");
-		baieztapena.setLayout(new MigLayout("", "[grow][][grow][][grow]", "[154.00,grow][grow][grow][grow,bottom]"));
-
-		JButton btnBaieztapenaBukatu = new JButton("Loginera Itzuli");
-		btnBaieztapenaBukatu.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				CardLayout cl = (CardLayout) principal.getLayout();
-				JOptionPane.showMessageDialog(null, "Dena ondo gorde da.");
-				txtLoginErabiltzailea.setText("");
-				passwordFieldLogin.setText("");
-				txtErregistroErabiltzailea.setText("");
-				passwordFieldErregistro.setText("");
-				passwordFieldErregistroErrepikatu.setText("");
-				txtErregistroIzena.setText("");
-				txtErregistroAbizenak.setText("");
-				txtErregistroJaiotzeData.setText("");
-				comboBoxErregistroFuntzioak.setSelectedIndex(0);
-				// TODO
-				cl.show(principal, "OngiEtorria");
-
-			}
-
-		});
-
-		JLabel lblNewLabel = new JLabel("New label");
-		baieztapena.add(lblNewLabel, "cell 2 0,alignx center");
-
-		JLabel lblBaieztapena = new JLabel("New label");
-		baieztapena.add(lblBaieztapena, "cell 2 1,alignx center,aligny bottom");
-		baieztapena.add(btnBaieztapenaBukatu, "cell 2 2,alignx center,aligny top");
-
 	}
+	
 }
