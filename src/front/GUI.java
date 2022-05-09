@@ -321,9 +321,7 @@ public class GUI {
 		comboBoxEgunAutaketa.setModel(new DefaultComboBoxModel(Egunak.values()));
 		egunAutaketa.add(comboBoxEgunAutaketa, "cell 2 1,growx");
 
-		JButton btnEgunAutaketaKartelera = new JButton("Kartelera");
-		egunAutaketa.add(btnEgunAutaketaKartelera, "cell 1 3");
-
+		
 		JButton btnEgunAutaketaAsteLaburpena = new JButton("Aste Laburpena");
 		btnEgunAutaketaAsteLaburpena.addMouseListener(new MouseAdapter() {
 			@Override
@@ -366,10 +364,13 @@ public class GUI {
 		JPanel edukia = new JPanel();
 		principal.add(edukia, "Edukia");
 		edukia.setLayout(
-				new MigLayout("", "[grow][leading][][][][][grow]", "[grow][][][][grow][][][][][][][][][][][grow]"));
+				new MigLayout("", "[grow][leading][][][][][grow]", "[grow][][][][][grow][][][][][][][][][][][grow]"));
 
 		JLabel lblFilmak = new JLabel("Filmak");
 		edukia.add(lblFilmak, "cell 3 1,alignx center");
+		
+				JButton btnEdukiaBerriaFilma = new JButton("+");
+				edukia.add(btnEdukiaBerriaFilma, "cell 4 1,growx");
 
 		JScrollPane scrollPaneEdukiaFilmak = new JScrollPane();
 		edukia.add(scrollPaneEdukiaFilmak, "cell 1 2 5 1,grow");
@@ -388,21 +389,21 @@ public class GUI {
 		};
 		tableEdukiaFilmak.setModel(modelPanelEdikuaFilmak);
 		Erabilgarriak.tablaEdukia(modelPanelEdikuaFilmak, proiekzioak, Erabilgarriak.FILMA);
-
-		JButton btnEdukiaEzabatuFilma = new JButton("Ezabatu");
-		edukia.add(btnEdukiaEzabatuFilma, "cell 1 3");
-
-		JButton btnEdukiaBerriaFilma = new JButton("Berria");
-		edukia.add(btnEdukiaBerriaFilma, "cell 3 3,growx");
-
-		JButton btnEdukiaGehituFilma = new JButton("Gehitu");
-		edukia.add(btnEdukiaGehituFilma, "cell 5 3,growx");
+				
+						JButton btnEdukiaEzabatuFilma = new JButton("Ezabatu");
+						edukia.add(btnEdukiaEzabatuFilma, "flowy,cell 6 2,growx");
+		
+				JButton btnEdukiaGehituFilma = new JButton("Gehitu");
+				edukia.add(btnEdukiaGehituFilma, "cell 6 2,growx");
 
 		JLabel lblFilmLaburrak = new JLabel("Film laburrak");
-		edukia.add(lblFilmLaburrak, "cell 3 5,alignx center");
+		edukia.add(lblFilmLaburrak, "cell 3 6,alignx center");
+		
+				JButton btnEdukiaBerriaFilmaL = new JButton("+");
+				edukia.add(btnEdukiaBerriaFilmaL, "cell 4 6,growx");
 
 		JScrollPane scrollPaneEdukiaFilmLaburrak = new JScrollPane();
-		edukia.add(scrollPaneEdukiaFilmLaburrak, "cell 1 6 5 1,grow");
+		edukia.add(scrollPaneEdukiaFilmLaburrak, "cell 1 7 5 1,grow");
 
 		tableEdukiaFilmLaburrak = new JTable();
 		scrollPaneEdukiaFilmLaburrak.setViewportView(tableEdukiaFilmLaburrak);
@@ -416,21 +417,21 @@ public class GUI {
 		};
 		tableEdukiaFilmLaburrak.setModel(modelPanelEdikuaFilmLaburrak);
 		Erabilgarriak.tablaEdukia(modelPanelEdikuaFilmLaburrak, proiekzioak, Erabilgarriak.FILMLABURRA);
-
-		JButton btnEdukiaEzabatuFilmaL = new JButton("Ezabatu");
-		edukia.add(btnEdukiaEzabatuFilmaL, "cell 1 7,growx");
-
-		JButton btnEdukiaBerriaFilmaL = new JButton("Berria");
-		edukia.add(btnEdukiaBerriaFilmaL, "cell 3 7,growx");
-
-		JButton btnEdukiaGehituFilmaL = new JButton("Gehitu");
-		edukia.add(btnEdukiaGehituFilmaL, "cell 5 7,growx");
+				
+						JButton btnEdukiaEzabatuFilmaL = new JButton("Ezabatu");
+						edukia.add(btnEdukiaEzabatuFilmaL, "flowy,cell 6 7,growx");
+		
+				JButton btnEdukiaGehituFilmaL = new JButton("Gehitu");
+				edukia.add(btnEdukiaGehituFilmaL, "cell 6 7,growx");
 
 		JLabel lblDokumentalak = new JLabel("Dokumentalak");
-		edukia.add(lblDokumentalak, "cell 3 9,alignx center");
+		edukia.add(lblDokumentalak, "cell 3 10,alignx center");
+		
+				JButton btnEdukiaBerriaDok = new JButton("+");
+				edukia.add(btnEdukiaBerriaDok, "cell 4 10,growx");
 
 		JScrollPane scrollPaneEdukiaDokumentalak = new JScrollPane();
-		edukia.add(scrollPaneEdukiaDokumentalak, "cell 1 10 5 1,grow");
+		edukia.add(scrollPaneEdukiaDokumentalak, "cell 1 11 5 1,grow");
 
 		tableEdukiaDokumentalak = new JTable();
 		scrollPaneEdukiaDokumentalak.setViewportView(tableEdukiaDokumentalak);
@@ -444,31 +445,28 @@ public class GUI {
 		};
 		tableEdukiaDokumentalak.setModel(modelPanelEdikuaDokumentalak);
 		Erabilgarriak.tablaEdukia(modelPanelEdikuaDokumentalak, proiekzioak, Erabilgarriak.DOKUMENTALA);
-
-		JButton btnEdukiaEzabatuDok = new JButton("Ezabatu");
-		edukia.add(btnEdukiaEzabatuDok, "cell 1 12,growx");
-
-		JButton btnEdukiaBerriaDok = new JButton("Berria");
-		edukia.add(btnEdukiaBerriaDok, "cell 3 12,growx");
-
-		JButton btnEdukiaGehituDok = new JButton("Gehitu");
-		edukia.add(btnEdukiaGehituDok, "cell 5 12,growx");
-
-		JButton btnEdukiaLaburpena = new JButton("Laburpena");
-		btnEdukiaLaburpena.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				CardLayout cl = (CardLayout) principal.getLayout();
-				cl.show(principal, "EgunLaburpena");
-			}
-		});
+				
+						JButton btnEdukiaEzabatuDok = new JButton("Ezabatu");
+						edukia.add(btnEdukiaEzabatuDok, "flowy,cell 6 11,growx");
+		
+				JButton btnEdukiaGehituDok = new JButton("Gehitu");
+				edukia.add(btnEdukiaGehituDok, "cell 6 11,growx");
 
 		JButton btnEdukiaEzeztatuDok = new JButton("Ezeztatu");
-		edukia.add(btnEdukiaEzeztatuDok, "cell 2 14,growx");
-
-		JButton btnEdukiaBaieztatuDok = new JButton("Baieztatu");
-		edukia.add(btnEdukiaBaieztatuDok, "cell 3 14,growx");
-		edukia.add(btnEdukiaLaburpena, "cell 4 14,growx");
+		edukia.add(btnEdukiaEzeztatuDok, "cell 2 15,growx");
+		
+				JButton btnEdukiaLaburpena = new JButton("Laburpena");
+				btnEdukiaLaburpena.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mouseClicked(MouseEvent e) {
+						CardLayout cl = (CardLayout) principal.getLayout();
+						cl.show(principal, "EgunLaburpena");
+					}
+				});
+				
+						JButton btnEdukiaBaieztatuDok = new JButton("Baieztatu");
+						edukia.add(btnEdukiaBaieztatuDok, "cell 4 15,growx");
+				edukia.add(btnEdukiaLaburpena, "cell 5 15,alignx center");
 
 		JPanel egunLaburpena = new JPanel();
 		principal.add(egunLaburpena, "EgunLaburpena");
