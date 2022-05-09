@@ -26,6 +26,7 @@ public class Filma extends FilmLuzea {
 	 * @param iraupena Proiekzioaren iraupena
 	 * @param produktora Filmaren produktora
 	 * @param pegi Filmaren PEGI
+	 * @param generoa Filmaren generoa
 	 **/
 	public Filma(int id, String izenburua, int iraupena, String produktora, int pegi, String generoa) {
 		super(id, izenburua, iraupena, produktora);

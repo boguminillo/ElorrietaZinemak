@@ -94,10 +94,13 @@ public class Erabilgarriak {
 		for (int i = 0; i < modelo.getRowCount(); i++) {
 			int id = (Integer) modelo.getValueAt(i, 0);
 			String izenburua = (String) modelo.getValueAt(i, 1);
-			int iraupena = (Integer) modelo.getValueAt(i, 2);
+			int iraupena;
+			// documentar error cuando estaba en blanco, solucionado con los try catch
+			try{iraupena = (Integer) modelo.getValueAt(i, 2);} catch (Exception e) {iraupena = 0;}
 			if (mota.equals(FILMA)) {
 				String produktora = (String) modelo.getValueAt(i, 3);
-				int pegi = (Integer) modelo.getValueAt(i, 4);
+				int pegi;
+				try { pegi = (Integer) modelo.getValueAt(i, 4);} catch (Exception e) {pegi = 0;}
 				String generoa = (String) modelo.getValueAt(i, 5);
 				proiekzioak.add(new Filma(id, izenburua, iraupena, produktora, pegi, generoa));
 			} else if (mota.equals(DOKUMENTALA)) {
@@ -159,5 +162,15 @@ public class Erabilgarriak {
 			}
 		}
 		return false;
+	}
+
+	public static int hurrengoId(ArrayList<Proiekzioa> proiekzioak) {
+		int id = 0;
+		for (Proiekzioa p : proiekzioak) {
+			if (p.getId() > id) {
+				id = p.getId();
+			}
+		}
+		return id + 1;
 	}
 }
