@@ -3,9 +3,10 @@ package front;
 import java.util.ArrayList;
 import java.util.Map;
 
-import javax.swing.JTextArea;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import back.CsvParser;
 import back.objektuak.*;
 
 public class Erabilgarriak {
@@ -26,9 +27,8 @@ public class Erabilgarriak {
 	private Erabilgarriak() {
 	}
 
-	public static void egunaAukeratu(ArrayList<Proiekzioa> egunekoProiekzioak, JTextArea txtInfoEgunAutaketa,
-			String eguna) {
-		txtInfoEgunAutaketa.setText("");
+	public static String egunaAukeratu(ArrayList<Proiekzioa> egunekoProiekzioak, String eguna) {
+		String laburpena = "";
 		int proiekzioak = 0;
 		int btbtIraupena = 0;
 		int denboraLibre = egunDenborak.get(eguna);
@@ -39,13 +39,14 @@ public class Erabilgarriak {
 		}
 		btbtIraupena = btbtIraupena / proiekzioak;
 		if (proiekzioak > 0) {
-			txtInfoEgunAutaketa.append("Eguneko proiekzioak: " + proiekzioak + "\n");
-			txtInfoEgunAutaketa.append("Eguneko proiekzioen batezbesteko iraupena: " + btbtIraupena + "\n");
-			txtInfoEgunAutaketa.append("Eguneko denbora librea: " + denboraLibre + "\n");
+			laburpena = laburpena.concat("Eguneko proiekzioak: " + proiekzioak + "\n");
+			laburpena = laburpena.concat("Eguneko proiekzioen batezbesteko iraupena: " + btbtIraupena + "\n");
+			laburpena = laburpena.concat("Eguneko denbora librea: " + denboraLibre + "\n");
 		} else {
-			txtInfoEgunAutaketa.append("Eguneko proiekziorik ez daude\n");
-			txtInfoEgunAutaketa.append("Eguneko denbora librea: " + denboraLibre + "\n");
+			laburpena = laburpena.concat("Eguneko proiekziorik ez daude\n");
+			laburpena = laburpena.concat("Eguneko denbora librea: " + denboraLibre + "\n");
 		}
+		return laburpena;
 	}
 
 	public static void tablaEdukia(DefaultTableModel tableModel, ArrayList<Proiekzioa> proiekzioak, String mota) {
@@ -85,4 +86,27 @@ public class Erabilgarriak {
 		}
 	}
 
+	public static ArrayList<Proiekzioa> taulaToArrayList(JTable taula, String mota) {
+		DefaultTableModel modelo = (DefaultTableModel) taula.getModel();
+		ArrayList<Proiekzioa> proiekzioak = new ArrayList<>();
+		for (int i = 0; i < modelo.getRowCount(); i++) {
+			int id = (Integer) modelo.getValueAt(i, 0);
+			String izenburua = (String) modelo.getValueAt(i, 1);
+			int iraupena = (Integer) modelo.getValueAt(i, 2);
+			if (mota.equals(FILMA)) {
+				String produktora = (String) modelo.getValueAt(i, 3);
+				int pegi = (Integer) modelo.getValueAt(i, 4);
+				String generoa = (String) modelo.getValueAt(i, 5);
+				proiekzioak.add(new Filma(id, izenburua, iraupena, produktora, pegi, generoa));
+			} else if (mota.equals(DOKUMENTALA)) {
+				String produktora = (String) modelo.getValueAt(i, 3);
+				String tema = (String) modelo.getValueAt(i, 4);
+				proiekzioak.add(new Dokumentala(id, izenburua, iraupena, produktora, tema));
+			} else {
+				String fabula = (String) modelo.getValueAt(i, 3);
+				proiekzioak.add(new FilmLaburra(id, izenburua, iraupena, fabula));
+			}
+		}
+		return proiekzioak;
+	}
 }

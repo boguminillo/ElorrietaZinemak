@@ -16,6 +16,19 @@ public abstract class FilmLuzea extends Proiekzioa {
 	}
 
 	/**
+	 * Eraikitzailea
+	 * 
+	 * @param id Proiekzioaren identifikatzailea
+	 * @param izenburua Proiekzioaren izenburua
+	 * @param iraupena Proiekzioaren iraupena
+	 * @param produktora Filmaren produktora
+	 **/
+	public FilmLuzea(int id, String izenburua, int iraupena, String produktora) {
+		super(id, izenburua, iraupena);
+		this.produktora = produktora;
+	}
+
+	/**
 	 * Filmaren produktora lortu
 	 * 
 	 * @return Filmaren produktora

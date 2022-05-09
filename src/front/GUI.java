@@ -315,7 +315,7 @@ public class GUI {
 			public void itemStateChanged(ItemEvent e) {
 				String eguna = comboBoxEgunAutaketa.getSelectedItem().toString();
 				egunekoProiekzioak = CsvParser.irakurriProiekzioenZerrenda("datuak/" + eguna);
-				Erabilgarriak.egunaAukeratu(egunekoProiekzioak, txtInfoEgunAutaketa, eguna);
+				txtInfoEgunAutaketa.setText(Erabilgarriak.egunaAukeratu(egunekoProiekzioak, eguna));
 			}
 		});
 		comboBoxEgunAutaketa.setModel(new DefaultComboBoxModel(Egunak.values()));
@@ -396,6 +396,8 @@ public class GUI {
 				JButton btnEdukiaGehituFilma = new JButton("Gehitu");
 				edukia.add(btnEdukiaGehituFilma, "cell 6 2,growx");
 
+	
+
 		JLabel lblFilmLaburrak = new JLabel("Film laburrak");
 		edukia.add(lblFilmLaburrak, "cell 3 6,alignx center");
 		
@@ -423,6 +425,8 @@ public class GUI {
 		
 				JButton btnEdukiaGehituFilmaL = new JButton("Gehitu");
 				edukia.add(btnEdukiaGehituFilmaL, "cell 6 7,growx");
+
+		
 
 		JLabel lblDokumentalak = new JLabel("Dokumentalak");
 		edukia.add(lblDokumentalak, "cell 3 10,alignx center");

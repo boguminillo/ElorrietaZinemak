@@ -19,6 +19,21 @@ public class Filma extends FilmLuzea {
 	}
 
 	/**
+	 * Eraikitzailea
+	 * 
+	 * @param id Proiekzioaren identifikatzailea
+	 * @param izenburua Proiekzioaren izenburua
+	 * @param iraupena Proiekzioaren iraupena
+	 * @param produktora Filmaren produktora
+	 * @param pegi Filmaren PEGI
+	 **/
+	public Filma(int id, String izenburua, int iraupena, String produktora, int pegi, String generoa) {
+		super(id, izenburua, iraupena, produktora);
+		this.pegi = pegi;
+		this.generoa = generoa;
+	}
+
+	/**
 	 * Filmaren PEGI lortu
 	 * 
 	 * @return Filmaren PEGI

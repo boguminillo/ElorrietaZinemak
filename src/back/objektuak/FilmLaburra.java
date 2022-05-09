@@ -18,6 +18,19 @@ public class FilmLaburra extends Proiekzioa {
 	}
 
 	/**
+	 * Eraikitzailea
+	 * 
+	 * @param id Proiekzioaren identifikatzailea
+	 * @param izenburua Proiekzioaren izenburua
+	 * @param iraupena Proiekzioaren iraupena
+	 * @param fabula Filme laburraren fabula
+	 **/
+	public FilmLaburra(int id, String izenburua, int iraupena, String fabula) {
+		super(id, izenburua, iraupena);
+		this.fabula = fabula;
+	}
+
+	/**
 	 * Filme laburraren fabula lortu
 	 * 
 	 * @return Filme laburraren fabula

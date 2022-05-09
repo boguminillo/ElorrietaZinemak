@@ -18,6 +18,20 @@ public class Dokumentala extends FilmLuzea {
 	}
 
 	/**
+	 * Eraikitzailea
+	 * 
+	 * @param id Proiekzioaren identifikatzailea
+	 * @param izenburua Proiekzioaren izenburua
+	 * @param iraupena Proiekzioaren iraupena
+	 * @param produktora Filmaren produktora
+	 * @param tema Dokumentalaren tema
+	 **/
+	public Dokumentala(int id, String izenburua, int iraupena, String produktora, String tema) {
+		super(id, izenburua, iraupena, produktora);
+		this.tema = tema;
+	}
+
+	/**
 	 * Dokumentalaren tema lortu
 	 * 
 	 * @return Dokumentalaren tema

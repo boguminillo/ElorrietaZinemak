@@ -21,6 +21,19 @@ public abstract class Proiekzioa {
 	}
 
 	/**
+	 * Eraikitzailea
+	 * 
+	 * @param id Proiekzioaren identifikatzailea
+	 * @param izenburua Proiekzioaren izenburua
+	 * @param iraupena Proiekzioaren iraupena
+	 **/
+	public Proiekzioa(int id, String izenburua, int iraupena) {
+		this.id = id;
+		this.izenburua = izenburua;
+		this.iraupena = iraupena;
+	}
+
+	/**
 	 * Proiekzioaren identifikatzailea lortu
 	 * 
 	 * @return Proiekzioaren identifikatzailea
