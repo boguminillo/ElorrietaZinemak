@@ -491,7 +491,8 @@ public class GUI {
 			public void mouseClicked(MouseEvent e) {
 				Erabilgarriak.ezabatuFilma(listaEdukiEgunarenLaburpena, egunekoProiekzioak);
 				String eguna = comboBoxEgunAutaketa.getSelectedItem().toString();
-				lblEdukiaDenboraLibre.setText("Denbora librea: " + Erabilgarriak.denboraLibre(egunekoProiekzioak, eguna));
+				lblEdukiaDenboraLibre
+						.setText("Denbora librea: " + Erabilgarriak.denboraLibre(egunekoProiekzioak, eguna));
 			}
 		});
 		edukia.add(btnEdukiaEzabatu, "flowy,cell 6 4,growx");
@@ -587,6 +588,22 @@ public class GUI {
 		edukia.add(btnEdukiaGehituDok, "cell 6 6,growx");
 
 		JButton btnEdukiaEzeztatuDok = new JButton("Ezeztatu");
+		btnEdukiaEzeztatuDok.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				proiekzioak = CsvParser.irakurriProiekzioenZerrenda("datuak/proiekzioak");
+				Erabilgarriak.tablaEdukia(modelPanelEdukiaFilmak, proiekzioak, Erabilgarriak.FILMA);
+				Erabilgarriak.tablaEdukia(modelPanelEdukiaDokumentalak, proiekzioak, Erabilgarriak.DOKUMENTALA);
+				Erabilgarriak.tablaEdukia(modelPanelEdukiaFilmLaburrak, proiekzioak, Erabilgarriak.FILMLABURRA);
+				String eguna = comboBoxEgunAutaketa.getSelectedItem().toString();
+				egunekoProiekzioak = CsvParser.irakurriProiekzioenZerrenda("datuak/" + eguna);
+				Erabilgarriak.listaBete(listaEdukiEgunarenLaburpena, egunekoProiekzioak);
+				lblEdukiaDenboraLibre
+						.setText("Denbora librea: " + Erabilgarriak.denboraLibre(egunekoProiekzioak, eguna));
+				JOptionPane.showMessageDialog(null, "Edukia ezeztatuta");
+			}
+		});
+
 		edukia.add(btnEdukiaEzeztatuDok, "cell 2 7,growx");
 
 		JButton btnEdukiaLaburpena = new JButton("Laburpena");

@@ -53,6 +53,8 @@ public class Erabilgarriak {
 	}
 
 	public static void tablaEdukia(DefaultTableModel tableModel, ArrayList<Proiekzioa> proiekzioak, String mota) {
+		// documentar error al cancelar los cambios se duplicaba en lugar de reiniciar las tablas, solucionado con la linea de debajo
+		tableModel.setRowCount(0);
 		for (Proiekzioa proiekzioa : proiekzioak) {
 			if (mota.equals(FILMA)) {
 				if (proiekzioa instanceof Filma) {
