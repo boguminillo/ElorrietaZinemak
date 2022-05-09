@@ -314,7 +314,7 @@ public class GUI {
 			public void itemStateChanged(ItemEvent e) {
 				String eguna = comboBoxEgunAutaketa.getSelectedItem().toString();
 				egunekoProiekzioak = CsvParser.irakurriProiekzioenZerrenda("datuak/" + eguna);
-				Erabilgarriak.egunaAukeratu(egunekoProiekzioak, txtInfoEgunAutaketa, eguna);
+				txtInfoEgunAutaketa.setText(Erabilgarriak.egunaAukeratu(egunekoProiekzioak, eguna));
 			}
 		});
 		comboBoxEgunAutaketa.setModel(new DefaultComboBoxModel(Egunak.values()));
