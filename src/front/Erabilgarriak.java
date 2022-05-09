@@ -3,11 +3,12 @@ package front;
 import java.util.ArrayList;
 import java.util.Map;
 
-import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-import back.CsvParser;
-import back.objektuak.*;
+import back.objektuak.Dokumentala;
+import back.objektuak.FilmLaburra;
+import back.objektuak.Filma;
+import back.objektuak.Proiekzioa;
 
 public class Erabilgarriak {
 
@@ -58,6 +59,7 @@ public class Erabilgarriak {
 							filma.getId(),
 							filma.getIzenburua(),
 							filma.getIraupena(),
+							filma.getProduktora(),
 							filma.getPegi(),
 							filma.getGeneroa()
 					});
@@ -69,6 +71,7 @@ public class Erabilgarriak {
 							dokumental.getId(),
 							dokumental.getIzenburua(),
 							dokumental.getIraupena(),
+							dokumental.getProduktora(),
 							dokumental.getTema()
 					});
 				}
@@ -107,5 +110,54 @@ public class Erabilgarriak {
 			}
 		}
 		return proiekzioak;
+	}
+
+	public static String egunLaburpena(ArrayList<Proiekzioa> egunekoProiekzioak, String eguna) {
+		String laburpena = "";
+		int denboraLibre = egunDenborak.get(eguna);
+		for (Proiekzioa p : egunekoProiekzioak) {
+			laburpena = laburpena.concat(p.toLaburpenTextua() + "\n");
+			denboraLibre -= p.getIraupena();
+		}
+		laburpena = laburpena.concat("Eguneko denbora librea: " + denboraLibre);
+		return laburpena;
+	}
+
+	public static Proiekzioa proiekzioaLortu(int id, ArrayList<Proiekzioa> proiekzioak) {
+		for (Proiekzioa p : proiekzioak) {
+			if (p.getId() == id) {
+				return p;
+			}
+		}
+		return null;
+	}
+
+	public static int denboraLibre(ArrayList<Proiekzioa> proiekzioak, String eguna) {
+		int denboraLibre = egunDenborak.get(eguna);
+		for (Proiekzioa p : proiekzioak) {
+			denboraLibre -= p.getIraupena();
+		}
+		return denboraLibre;
+	}
+
+	public static boolean generoaBadago(String generoa, ArrayList<Proiekzioa> egunekoProiekzioak) {
+		for (Proiekzioa p : egunekoProiekzioak) {
+			if (p instanceof Filma) {
+				Filma f = (Filma) p;
+				if (f.getGeneroa().equals(generoa)) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
+	public static boolean proiekzioaBadago(Proiekzioa proiekzioa, ArrayList<Proiekzioa> egunekoProiekzioak) {
+		for (Proiekzioa p : egunekoProiekzioak) {
+			if (p.getId() == proiekzioa.getId()) {
+				return true;
+			}
+		}
+		return false;
 	}
 }

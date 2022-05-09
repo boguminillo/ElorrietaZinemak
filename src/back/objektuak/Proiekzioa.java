@@ -90,6 +90,15 @@ public abstract class Proiekzioa {
 	@Override
 	public String toString() {
 		return id + ";" + izenburua + ";" + iraupena;
-	}	
+	}
+
+	/**
+	 * Proiekzioaren laburpen textu bezala lortu
+	 * 
+	 * @return Proiekzioaren laburpen textua
+	 */
+	public String toLaburpenTextua(){
+		return "Izenbua: " + izenburua + " Iraupena: " +  iraupena;
+	}
 
 }

@@ -3,8 +3,13 @@ package front;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.time.LocalDate;
@@ -31,15 +36,10 @@ import javax.swing.table.DefaultTableModel;
 import back.CsvParser;
 import back.objektuak.Egunak;
 import back.objektuak.Erabiltzailea;
-import back.objektuak.FilmLaburra;
-import back.objektuak.FilmLuzea;
+import back.objektuak.Filma;
 import back.objektuak.Funtzioak;
 import back.objektuak.Proiekzioa;
 import net.miginfocom.swing.MigLayout;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.awt.event.ItemListener;
-import java.awt.event.ItemEvent;
 
 public class GUI {
 
@@ -56,6 +56,7 @@ public class GUI {
 	private JTable tableEdukiaFilmak;
 	private JTable tableEdukiaDokumentalak;
 	private JTable tableEdukiaFilmLaburrak;
+	private JTextArea txtEdukiListaEgunarenLaburpena;
 	private ArrayList<Proiekzioa> proiekzioak = CsvParser.irakurriProiekzioenZerrenda("datuak/proiekzioak");
 	private ArrayList<Proiekzioa> egunekoProiekzioak = CsvParser.irakurriProiekzioenZerrenda("datuak/ASTELEHENA");
 
@@ -88,7 +89,8 @@ public class GUI {
 	private void initialize() {
 		frmElorrietaZinema = new JFrame();
 		frmElorrietaZinema.setTitle("Elorrieta Zinema");
-		frmElorrietaZinema.setBounds(100, 100, 640, 480);
+		frmElorrietaZinema.setBounds(100, 100, 1000, 500);
+		frmElorrietaZinema.setMinimumSize(new Dimension(1000, 500));
 		frmElorrietaZinema.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		JPanel principal = new JPanel();
@@ -302,7 +304,9 @@ public class GUI {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				String eguna = comboBoxEgunAutaketa.getSelectedItem().toString();
-				egunekoProiekzioak = CsvParser.irakurriProiekzioenZerrenda("datuak/" + eguna);
+				// egunekoProiekzioak = CsvParser.irakurriProiekzioenZerrenda("datuak/" +
+				// eguna);
+				txtEdukiListaEgunarenLaburpena.setText(Erabilgarriak.egunLaburpena(egunekoProiekzioak, eguna));
 				CardLayout cl = (CardLayout) principal.getLayout();
 				cl.show(principal, "Edukia");
 			}
@@ -363,7 +367,7 @@ public class GUI {
 		JPanel edukia = new JPanel();
 		principal.add(edukia, "Edukia");
 		edukia.setLayout(
-				new MigLayout("", "[grow][leading][][][][][][][][grow]", "[grow][][grow][][][grow][][][][][][][][][][][grow]"));
+				new MigLayout("", "[grow][leading][][][][][][][grow]", "[grow][][grow][][][][][][grow]"));
 
 		JLabel lblFilmak = new JLabel("Filmak");
 		edukia.add(lblFilmak, "cell 3 1,alignx center");
@@ -385,27 +389,50 @@ public class GUI {
 			public Class getColumnClass(int columnIndex) {
 				return columnTypes[columnIndex];
 			}
+			boolean[] canEdit = new boolean[] {
+					false, true, true, true, true, true
+			};
+
+			public boolean isCellEditable(int rowIndex, int columnIndex) {
+				return canEdit[columnIndex];
+			}
 		};
 		tableEdukiaFilmak.setModel(modelPanelEdukiaFilmak);
 		Erabilgarriak.tablaEdukia(modelPanelEdukiaFilmak, proiekzioak, Erabilgarriak.FILMA);
 
-		JButton btnEdukiaEzabatuFilma = new JButton("Ezabatu");
+		JButton btnEdukiaEzabatuFilma = new JButton("<<");
 		edukia.add(btnEdukiaEzabatuFilma, "flowy,cell 6 2,growx");
 
-		JButton btnEdukiaGehituFilma = new JButton("Gehitu");
+		JButton btnEdukiaGehituFilma = new JButton(">>");
+		btnEdukiaGehituFilma.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				String eguna = comboBoxEgunAutaketa.getSelectedItem().toString();
+				int id = (int) tableEdukiaFilmak.getValueAt(tableEdukiaFilmak.getSelectedRow(), 0);
+				Filma proiekzioa = (Filma) Erabilgarriak.proiekzioaLortu(id, proiekzioak);
+				if (proiekzioa.getIraupena() > Erabilgarriak.denboraLibre(egunekoProiekzioak, eguna)) {
+					JOptionPane.showMessageDialog(null, "Ez dago denborarik");
+				} else if (Erabilgarriak.generoaBadago(proiekzioa.getGeneroa(), egunekoProiekzioak)) {
+					JOptionPane.showMessageDialog(null, "Genero bereko proiekzioa dago");
+				} else {
+					egunekoProiekzioak.add(proiekzioa);
+					txtEdukiListaEgunarenLaburpena.setText(Erabilgarriak.egunLaburpena(egunekoProiekzioak, eguna));
+				}
+			}
+		});
 		edukia.add(btnEdukiaGehituFilma, "cell 6 2,growx");
-		
-		JTextArea txtEdukiListaEgunarenLaburpena = new JTextArea();
-		edukia.add(txtEdukiListaEgunarenLaburpena, "cell 7 2 3 14,grow");
+
+		txtEdukiListaEgunarenLaburpena = new JTextArea();
+		edukia.add(txtEdukiListaEgunarenLaburpena, "cell 7 2 1 6,grow");
 
 		JLabel lblFilmLaburrak = new JLabel("Film laburrak");
-		edukia.add(lblFilmLaburrak, "cell 3 6,alignx center");
+		edukia.add(lblFilmLaburrak, "cell 3 3,alignx center");
 
 		JButton btnEdukiaBerriaFilmaL = new JButton("+");
-		edukia.add(btnEdukiaBerriaFilmaL, "cell 4 6,growx");
+		edukia.add(btnEdukiaBerriaFilmaL, "cell 4 3,growx");
 
 		JScrollPane scrollPaneEdukiaFilmLaburrak = new JScrollPane();
-		edukia.add(scrollPaneEdukiaFilmLaburrak, "cell 1 7 5 1,grow");
+		edukia.add(scrollPaneEdukiaFilmLaburrak, "cell 1 4 5 1,grow");
 
 		tableEdukiaFilmLaburrak = new JTable();
 		scrollPaneEdukiaFilmLaburrak.setViewportView(tableEdukiaFilmLaburrak);
@@ -416,46 +443,93 @@ public class GUI {
 			public Class getColumnClass(int columnIndex) {
 				return columnTypes[columnIndex];
 			}
+			boolean[] canEdit = new boolean[] {
+					false, true, true, true, true
+			};
+
+			public boolean isCellEditable(int rowIndex, int columnIndex) {
+				return canEdit[columnIndex];
+			}
 		};
 		tableEdukiaFilmLaburrak.setModel(modelPanelEdukiaFilmLaburrak);
 		Erabilgarriak.tablaEdukia(modelPanelEdukiaFilmLaburrak, proiekzioak, Erabilgarriak.FILMLABURRA);
 
-		JButton btnEdukiaEzabatuFilmaL = new JButton("Ezabatu");
-		edukia.add(btnEdukiaEzabatuFilmaL, "flowy,cell 6 7,growx");
+		JButton btnEdukiaEzabatuFilmaL = new JButton("<<");
+		edukia.add(btnEdukiaEzabatuFilmaL, "flowy,cell 6 4,growx");
 
-		JButton btnEdukiaGehituFilmaL = new JButton("Gehitu");
-		edukia.add(btnEdukiaGehituFilmaL, "cell 6 7,growx");
+		JButton btnEdukiaGehituFilmaL = new JButton(">>");
+		btnEdukiaGehituFilmaL.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				String eguna = comboBoxEgunAutaketa.getSelectedItem().toString();
+				int id = (int) tableEdukiaFilmLaburrak.getValueAt(tableEdukiaFilmLaburrak.getSelectedRow(), 0);
+				Proiekzioa proiekzioa = Erabilgarriak.proiekzioaLortu(id, proiekzioak);
+				if (proiekzioa.getIraupena() > Erabilgarriak.denboraLibre(egunekoProiekzioak, eguna)) {
+					JOptionPane.showMessageDialog(null, "Ez dago denborarik");
+				} else if (Erabilgarriak.proiekzioaBadago(proiekzioa, egunekoProiekzioak)) {
+					JOptionPane.showMessageDialog(null, "Proiekzioa badago egunan");
+				} else {
+					egunekoProiekzioak.add(proiekzioa);
+					txtEdukiListaEgunarenLaburpena.setText(Erabilgarriak.egunLaburpena(egunekoProiekzioak, eguna));
+				}
+			}
+		});
+		edukia.add(btnEdukiaGehituFilmaL, "cell 6 4,growx");
 
 		JLabel lblDokumentalak = new JLabel("Dokumentalak");
-		edukia.add(lblDokumentalak, "cell 3 10,alignx center");
+		edukia.add(lblDokumentalak, "cell 3 5,alignx center");
 
 		JButton btnEdukiaBerriaDok = new JButton("+");
-		edukia.add(btnEdukiaBerriaDok, "cell 4 10,growx");
+		edukia.add(btnEdukiaBerriaDok, "cell 4 5,growx");
 
 		JScrollPane scrollPaneEdukiaDokumentalak = new JScrollPane();
-		edukia.add(scrollPaneEdukiaDokumentalak, "cell 1 11 5 1,grow");
+		edukia.add(scrollPaneEdukiaDokumentalak, "cell 1 6 5 1,grow");
 
 		tableEdukiaDokumentalak = new JTable();
 		scrollPaneEdukiaDokumentalak.setViewportView(tableEdukiaDokumentalak);
 		DefaultTableModel modelPanelEdukiaDokumentalak = new DefaultTableModel(new Object[][] {},
-				new String[] { "ID", "Izenburua", "Iraupena", "Produktora","Tema" }) {
-			Class[] columnTypes = new Class[] { Integer.class, String.class, Integer.class,String.class, Object.class };
+				new String[] { "ID", "Izenburua", "Iraupena", "Produktora", "Tema" }) {
+			Class[] columnTypes = new Class[] { Integer.class, String.class, Integer.class, String.class,
+					Object.class };
 
 			public Class getColumnClass(int columnIndex) {
 				return columnTypes[columnIndex];
+			}
+			boolean[] canEdit = new boolean[] {
+					false, true, true, true, true
+			};
+
+			public boolean isCellEditable(int rowIndex, int columnIndex) {
+				return canEdit[columnIndex];
 			}
 		};
 		tableEdukiaDokumentalak.setModel(modelPanelEdukiaDokumentalak);
 		Erabilgarriak.tablaEdukia(modelPanelEdukiaDokumentalak, proiekzioak, Erabilgarriak.DOKUMENTALA);
 
-		JButton btnEdukiaEzabatuDok = new JButton("Ezabatu");
-		edukia.add(btnEdukiaEzabatuDok, "flowy,cell 6 11,growx");
+		JButton btnEdukiaEzabatuDok = new JButton("<<");
+		edukia.add(btnEdukiaEzabatuDok, "flowy,cell 6 6,growx");
 
-		JButton btnEdukiaGehituDok = new JButton("Gehitu");
-		edukia.add(btnEdukiaGehituDok, "cell 6 11,growx");
+		JButton btnEdukiaGehituDok = new JButton(">>");
+		btnEdukiaGehituDok.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				String eguna = comboBoxEgunAutaketa.getSelectedItem().toString();
+				int id = (int) tableEdukiaDokumentalak.getValueAt(tableEdukiaDokumentalak.getSelectedRow(), 0);
+				Proiekzioa proiekzioa = Erabilgarriak.proiekzioaLortu(id, proiekzioak);
+				if (proiekzioa.getIraupena() > Erabilgarriak.denboraLibre(egunekoProiekzioak, eguna)) {
+					JOptionPane.showMessageDialog(null, "Ez dago denborarik");
+				} else if (Erabilgarriak.proiekzioaBadago(proiekzioa, egunekoProiekzioak)) {
+					JOptionPane.showMessageDialog(null, "Proiekzioa badago egunan");
+				} else {
+					egunekoProiekzioak.add(proiekzioa);
+					txtEdukiListaEgunarenLaburpena.setText(Erabilgarriak.egunLaburpena(egunekoProiekzioak, eguna));
+				}
+			}
+		});
+		edukia.add(btnEdukiaGehituDok, "cell 6 6,growx");
 
 		JButton btnEdukiaEzeztatuDok = new JButton("Ezeztatu");
-		edukia.add(btnEdukiaEzeztatuDok, "cell 2 15,growx");
+		edukia.add(btnEdukiaEzeztatuDok, "cell 2 7,growx");
 
 		JButton btnEdukiaLaburpena = new JButton("Laburpena");
 		btnEdukiaLaburpena.addMouseListener(new MouseAdapter() {
@@ -471,13 +545,16 @@ public class GUI {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				proiekzioak.clear();
-				proiekzioak.addAll(Erabilgarriak.taulaToArrayList(modelPanelEdukiaDokumentalak, Erabilgarriak.DOKUMENTALA));
-				proiekzioak.addAll(Erabilgarriak.taulaToArrayList(modelPanelEdukiaFilmLaburrak, Erabilgarriak.FILMLABURRA));
+				proiekzioak.addAll(
+						Erabilgarriak.taulaToArrayList(modelPanelEdukiaDokumentalak, Erabilgarriak.DOKUMENTALA));
+				proiekzioak.addAll(
+						Erabilgarriak.taulaToArrayList(modelPanelEdukiaFilmLaburrak, Erabilgarriak.FILMLABURRA));
 				proiekzioak.addAll(Erabilgarriak.taulaToArrayList(modelPanelEdukiaFilmak, Erabilgarriak.FILMA));
+				JOptionPane.showMessageDialog(null, "Edukia ondo gorde da");
 			}
 		});
-		edukia.add(btnEdukiaBaieztatu, "cell 4 15,growx");
-		edukia.add(btnEdukiaLaburpena, "cell 5 15,alignx center");
+		edukia.add(btnEdukiaBaieztatu, "cell 4 7,growx");
+		edukia.add(btnEdukiaLaburpena, "cell 5 7,alignx center");
 
 		JPanel egunLaburpena = new JPanel();
 		principal.add(egunLaburpena, "EgunLaburpena");
