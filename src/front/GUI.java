@@ -363,7 +363,7 @@ public class GUI {
 		JPanel edukia = new JPanel();
 		principal.add(edukia, "Edukia");
 		edukia.setLayout(
-				new MigLayout("", "[grow][leading][][][][][grow]", "[grow][][][][][grow][][][][][][][][][][][grow]"));
+				new MigLayout("", "[grow][leading][][][][][][][][grow]", "[grow][][grow][][][grow][][][][][][][][][][][grow]"));
 
 		JLabel lblFilmak = new JLabel("Filmak");
 		edukia.add(lblFilmak, "cell 3 1,alignx center");
@@ -394,6 +394,9 @@ public class GUI {
 
 		JButton btnEdukiaGehituFilma = new JButton("Gehitu");
 		edukia.add(btnEdukiaGehituFilma, "cell 6 2,growx");
+		
+		JTextArea txtEdukiListaEgunarenLaburpena = new JTextArea();
+		edukia.add(txtEdukiListaEgunarenLaburpena, "cell 7 2 3 14,grow");
 
 		JLabel lblFilmLaburrak = new JLabel("Film laburrak");
 		edukia.add(lblFilmLaburrak, "cell 3 6,alignx center");
