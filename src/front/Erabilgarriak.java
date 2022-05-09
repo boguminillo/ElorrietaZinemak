@@ -3,6 +3,8 @@ package front;
 import java.util.ArrayList;
 import java.util.Map;
 
+import javax.swing.DefaultListModel;
+import javax.swing.JList;
 import javax.swing.table.DefaultTableModel;
 
 import back.objektuak.Dokumentala;
@@ -172,5 +174,32 @@ public class Erabilgarriak {
 			}
 		}
 		return id + 1;
+	}
+
+	public static void listaBete(JList listaEdukiEgunarenLaburpena, ArrayList<Proiekzioa> egunekoProiekzioak) {
+		DefaultListModel modelo = new DefaultListModel();
+		for (Proiekzioa p : egunekoProiekzioak) {
+			modelo.addElement(p.toLaburpenTextua());
+		}
+		listaEdukiEgunarenLaburpena.setModel(modelo);
+	}
+
+	public static void ezabatuFilma(JList lista, ArrayList<Proiekzioa> proiekzioak) {
+		int index = lista.getSelectedIndex();
+		String textua = (String) lista.getSelectedValue();
+
+		if (index != -1) {
+			// documentar error, no se puede eliminar la fila de la lista, hay que hacerlo con el modelo
+			DefaultListModel modelo = (DefaultListModel) lista.getModel();
+			modelo.remove(index);
+		}
+
+		String Izenburua = textua.substring(0, textua.indexOf("-"));
+		for (int i = 0; i < proiekzioak.size(); i++) {
+			if (proiekzioak.get(i).getIzenburua().equals(Izenburua.trim())) {
+				proiekzioak.remove(i);
+				return;
+			}
+		}
 	}
 }
