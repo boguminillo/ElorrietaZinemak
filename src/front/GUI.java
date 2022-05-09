@@ -435,8 +435,8 @@ public class GUI {
 		tableEdukiaDokumentalak = new JTable();
 		scrollPaneEdukiaDokumentalak.setViewportView(tableEdukiaDokumentalak);
 		DefaultTableModel modelPanelEdukiaDokumentalak = new DefaultTableModel(new Object[][] {},
-				new String[] { "ID", "Izenburua", "Iraupena", "Tema" }) {
-			Class[] columnTypes = new Class[] { Integer.class, String.class, Integer.class, Object.class };
+				new String[] { "ID", "Izenburua", "Iraupena", "Produktora","Tema" }) {
+			Class[] columnTypes = new Class[] { Integer.class, String.class, Integer.class,String.class, Object.class };
 
 			public Class getColumnClass(int columnIndex) {
 				return columnTypes[columnIndex];
