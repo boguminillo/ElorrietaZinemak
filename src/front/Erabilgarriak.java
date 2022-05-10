@@ -198,9 +198,10 @@ public class Erabilgarriak {
 			modelo.remove(index);
 		}
 
-		String Izenburua = testua.substring(0, testua.indexOf("-"));
+		String id = testua.substring(0, testua.indexOf("-")).trim();
+
 		for (int i = 0; i < proiekzioak.size(); i++) {
-			if (proiekzioak.get(i).getIzenburua().equals(Izenburua.trim())) {
+			if (proiekzioak.get(i).getId() == Integer.parseInt(id)) {
 				proiekzioak.remove(i);
 				return;
 			}
