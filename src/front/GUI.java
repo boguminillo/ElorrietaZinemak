@@ -98,6 +98,8 @@ public class GUI {
 		frmElorrietaZinema.setBounds(100, 100, 1000, 500);
 		frmElorrietaZinema.setMinimumSize(new Dimension(1000, 500));
 		frmElorrietaZinema.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		ImageIcon img = new ImageIcon("assets/LogoEZ.png");
+		frmElorrietaZinema.setIconImage(img.getImage());
 
 		JPanel principal = new JPanel();
 		frmElorrietaZinema.getContentPane().add(principal, BorderLayout.CENTER);
