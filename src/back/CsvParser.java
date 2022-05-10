@@ -11,7 +11,7 @@ import back.objektuak.Filma;
 import back.objektuak.Proiekzioa;
 
 /**
- * CsvParser
+ * CsvParser, objektuen datuak csv fitxategietan erabiltxeko clasea.
  */
 public class CsvParser {
 	

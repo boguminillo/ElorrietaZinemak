@@ -14,8 +14,14 @@ import back.objektuak.FilmLaburra;
 import back.objektuak.Filma;
 import back.objektuak.Proiekzioa;
 
+/**
+ * Metodo erabilgarriak
+ */
 public class Erabilgarriak {
 
+	/**
+	 * Egun bakoitzeko denborak
+	 */
 	public static final Map<String, Integer> egunDenborak = Map.ofEntries(
 			Map.entry("ASTELEHENA", 5 * 60),
 			Map.entry("ASTEARTEA", 5 * 60),
@@ -25,13 +31,32 @@ public class Erabilgarriak {
 			Map.entry("LARUNBATA", 8 * 60),
 			Map.entry("IGANDEA", 8 * 60));
 
-	public static String FILMA = "Filma";
-	public static String DOKUMENTALA = "Dokumentala";
-	public static String FILMLABURRA = "FilmLaburra";
+	/**
+	 * Filmak identifikatzeko stringa
+	 */
+	public static final String FILMA = "Filma";
+	/**
+	 * Dokumentalak identifikatzeko stringa
+	 */
+	public static final String DOKUMENTALA = "Dokumentala";
+	/**
+	 * FilmLaburrak identifikatzeko stringa
+	 **/
+	public static final String FILMLABURRA = "FilmLaburra";
 
+	/**
+	 * Eraikitzaile pribatua
+	 */
 	private Erabilgarriak() {
 	}
 
+	/**
+	 * Egun baten laburpena lortzeko metodoa. Egunan dauden proiekzio kopurua, batezbesteko iraupena eta denbora librea ematen du.
+	 * 
+	 * @param egunekoProiekzioak Proiekzioen zerrenda
+	 * @param eguna Eguna
+	 * @return Laburpena
+	 */
 	public static String egunaAukeratu(ArrayList<Proiekzioa> egunekoProiekzioak, String eguna) {
 		String laburpena = "";
 		int proiekzioak = 0;
@@ -54,6 +79,13 @@ public class Erabilgarriak {
 		return laburpena;
 	}
 
+	/**
+	 * Proiekzioen zerrenda taula baten sartzeko metodoa
+	 * 
+	 * @param tableModel Taula baten modeloa
+	 * @param proiekzioak Proiekzioen zerrenda
+	 * @param mota Proiekzioen mota
+	 */
 	public static void tablaEdukia(DefaultTableModel tableModel, ArrayList<Proiekzioa> proiekzioak, String mota) {
 		// documentar error al cancelar los cambios se duplicaba en lugar de reiniciar las tablas, solucionado con la linea de debajo`
 		tableModel.setRowCount(0);
@@ -95,6 +127,13 @@ public class Erabilgarriak {
 		}
 	}
 
+	/**
+	 * Taula baten proiekzioak ArrayList-ean sartzeko metodoa
+	 * 
+	 * @param modelo Taula baten modeloa
+	 * @param mota Proiekzioen mota
+	 * @return Proiekzioen zerrenda
+	 */
 	public static ArrayList<Proiekzioa> taulaToArrayList(DefaultTableModel modelo, String mota) {
 		ArrayList<Proiekzioa> proiekzioak = new ArrayList<>();
 		for (int i = 0; i < modelo.getRowCount(); i++) {
@@ -120,18 +159,14 @@ public class Erabilgarriak {
 		}
 		return proiekzioak;
 	}
-
-	public static String egunLaburpena(ArrayList<Proiekzioa> egunekoProiekzioak, String eguna) {
-		String laburpena = "";
-		int denboraLibre = egunDenborak.get(eguna);
-		for (Proiekzioa p : egunekoProiekzioak) {
-			laburpena = laburpena.concat(p.toLaburpenTestua() + "\n");
-			denboraLibre -= p.getIraupena();
-		}
-		laburpena = laburpena.concat("Eguneko denbora librea: " + denboraLibre);
-		return laburpena;
-	}
-
+	
+	/**
+	 * Proiekzio bat zerrenda batetik id-a erabiltzen lortzeko metodoa.
+	 * 
+	 * @param id Proiekzioaren id-a
+	 * @param proiekzioak Proiekzioen zerrenda
+	 * @return Proiekzioa
+	 */
 	public static Proiekzioa proiekzioaLortu(int id, ArrayList<Proiekzioa> proiekzioak) {
 		for (Proiekzioa p : proiekzioak) {
 			if (p.getId() == id) {
@@ -141,6 +176,13 @@ public class Erabilgarriak {
 		return null;
 	}
 
+	/**
+	 * Egun baten denbora librea lortzeko metodoa
+	 * 
+	 * @param proiekzioak Eguneko proiekzioen zerrenda
+	 * @param eguna Eguna
+	 * @return Denbora librea
+	 */
 	public static int denboraLibre(ArrayList<Proiekzioa> proiekzioak, String eguna) {
 		int denboraLibre = egunDenborak.get(eguna);
 		for (Proiekzioa p : proiekzioak) {
@@ -149,8 +191,15 @@ public class Erabilgarriak {
 		return denboraLibre;
 	}
 
-	public static boolean generoaBadago(String generoa, ArrayList<Proiekzioa> egunekoProiekzioak) {
-		for (Proiekzioa p : egunekoProiekzioak) {
+	/**
+	 * Proiekzio zerrenda baten genero bateko filma dagoen ala ez zehazten duen metodoa
+	 * 
+	 * @param generoa Bilatzeko generoa
+	 * @param proiekzioak Proiekzioen zerrenda
+	 * @return True generoa badago, false ez badago
+	 */
+	public static boolean generoaBadago(String generoa, ArrayList<Proiekzioa> proiekzioak) {
+		for (Proiekzioa p : proiekzioak) {
 			if (p instanceof Filma) {
 				Filma f = (Filma) p;
 				if (f.getGeneroa().equals(generoa)) {
@@ -161,8 +210,15 @@ public class Erabilgarriak {
 		return false;
 	}
 
-	public static boolean proiekzioaBadago(Proiekzioa proiekzioa, ArrayList<Proiekzioa> egunekoProiekzioak) {
-		for (Proiekzioa p : egunekoProiekzioak) {
+	/**
+	 * Proiekzio zerrenda baten proiekzio bat dagoen ala ez zehazten duen metodoa
+	 * 
+	 * @param proiekzioa Bilatzeko proiekzioa
+	 * @param proiekzioak Proiekzioen zerrenda
+	 * @return True proiekzioa badago, false ez badago
+	 */
+	public static boolean proiekzioaBadago(Proiekzioa proiekzioa, ArrayList<Proiekzioa> proiekzioak) {
+		for (Proiekzioa p : proiekzioak) {
 			if (p.getId() == proiekzioa.getId()) {
 				return true;
 			}
@@ -170,6 +226,12 @@ public class Erabilgarriak {
 		return false;
 	}
 
+	/**
+	 * Proiekzio zerrenda baten libre dagoen lehenengo id-a lortzeko metodoa
+	 * 
+	 * @param proiekzioak Proiekzioen zerrenda
+	 * @return Id-a
+	 */
 	public static int hurrengoId(ArrayList<Proiekzioa> proiekzioak) {
 		int id = 0;
 		for (Proiekzioa p : proiekzioak) {
@@ -180,23 +242,42 @@ public class Erabilgarriak {
 		return id + 1;
 	}
 
-	public static void listaBete(JList<String> listaEdukiEgunarenLaburpena, ArrayList<Proiekzioa> egunekoProiekzioak) {
+	/**
+	 * Proiekzio zerrenda bat JList-ean sartzeko metodoa
+	 * 
+	 * @param lista Proiekzioen zerrenda (JList)
+	 * @param proiekzioak Proiekzioen zerrenda
+	 * @param eguna Eguna
+	 */
+	public static void listaBete(JList<String> lista, ArrayList<Proiekzioa> proiekzioak, String eguna) {
 		DefaultListModel<String> modelo = new DefaultListModel<String>();
-		for (Proiekzioa p : egunekoProiekzioak) {
-			modelo.addElement(p.toLaburpenTestua());
+		LocalTime ordua = LocalTime.of(16, 0, 0);
+		String str = "";
+		for (Proiekzioa p : proiekzioak) {
+			str = p.toLaburpenTestua();
+			str = str.concat(" - " +ordua.toString());
+			ordua = ordua.plusMinutes(p.getIraupena());
+			str = str.concat(" - " +ordua.toString());
+			modelo.addElement(str);
 		}
-		listaEdukiEgunarenLaburpena.setModel(modelo);
+		lista.setModel(modelo);
 	}
 
+	/**
+	 * JList baten autatutako proiekzioa proiekzio zerrenda batetik ezabatzeko metodoa
+	 * 
+	 * @param lista Proiekzioen zerrenda (JList)
+	 * @param proiekzioak Proiekzioen zerrenda
+	 */
 	public static void ezabatuProiekzioaListatik(JList<String> lista, ArrayList<Proiekzioa> proiekzioak) {
-		int index = lista.getSelectedIndex();
+		// int index = lista.getSelectedIndex();
 		String testua = (String) lista.getSelectedValue();
 
-		if (index != -1) {
-			// documentar error, no se puede eliminar la fila de la lista, hay que hacerlo con el modelo
-			DefaultListModel<String> modelo = (DefaultListModel<String>) lista.getModel();
-			modelo.remove(index);
-		}
+		// if (index != -1) {
+		// 	// documentar error, no se puede eliminar la fila de la lista, hay que hacerlo con el modelo
+		// 	DefaultListModel<String> modelo = (DefaultListModel<String>) lista.getModel();
+		// 	modelo.remove(index);
+		// }
 
 		String id = testua.substring(0, testua.indexOf("-")).trim();
 
@@ -208,6 +289,12 @@ public class Erabilgarriak {
 		}
 	}
 
+	/**
+	 * JTable baten autatutako proiekzioa JTable-etik eta proiekzio zerrenda batetik ezabatzeko metodoa
+	 * 
+	 * @param taula Proiekzioen zerrenda (JTable)
+	 * @param proiekzioak Proiekzioen zerrenda
+	 */
 	public static void ezabatuProiekzioaTaulatik(JTable taula, ArrayList<Proiekzioa> proiekzioak) {
 		int row = taula.getSelectedRow();
 		if (row != -1) {
@@ -222,20 +309,6 @@ public class Erabilgarriak {
 				}
 			}
 		}
-	}
-
-	public static void egunLaburpenaBete(JList<String> listaEdukiEgunarenLaburpena, ArrayList<Proiekzioa> egunekoProiekzioak, String eguna) {
-		DefaultListModel<String> modelo = new DefaultListModel<String>();
-		LocalTime ordua = LocalTime.of(16, 0, 0);
-		String str = "";
-		for (Proiekzioa p : egunekoProiekzioak) {
-			str = p.toLaburpenTestua();
-			str = str.concat(" - " +ordua.toString());
-			ordua = ordua.plusMinutes(p.getIraupena());
-			str = str.concat(" - " +ordua.toString());
-			modelo.addElement(str);
-		}
-		listaEdukiEgunarenLaburpena.setModel(modelo);
 	}
 
 }

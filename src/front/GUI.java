@@ -313,9 +313,9 @@ public class GUI {
 				if (denbora == 0) {
 					CardLayout cl = (CardLayout) principal.getLayout();
 					cl.show(principal, "EgunLaburpena");
-					Erabilgarriak.egunLaburpenaBete(listEgunLaburpena, egunekoProiekzioak, eguna);
+					Erabilgarriak.listaBete(listEgunLaburpena, egunekoProiekzioak, eguna);
 				} else {
-					Erabilgarriak.listaBete(listaEdukiEgunarenLaburpena, egunekoProiekzioak);
+					Erabilgarriak.listaBete(listaEdukiEgunarenLaburpena, egunekoProiekzioak, eguna);
 					lblEdukiaDenboraLibre
 							.setText("Denbora librea: " + denbora);
 					CardLayout cl = (CardLayout) principal.getLayout();
@@ -450,7 +450,7 @@ public class GUI {
 							"Filmaren izenburua eta iraupena beharrezkoak dira (aldaketak baieztatu behar dira erabili ahal izateko)");
 				} else {
 					egunekoProiekzioak.add(proiekzioa);
-					Erabilgarriak.listaBete(listaEdukiEgunarenLaburpena, egunekoProiekzioak);
+					Erabilgarriak.listaBete(listaEdukiEgunarenLaburpena, egunekoProiekzioak, eguna);
 					lblEdukiaDenboraLibre
 							.setText("Denbora librea: " + Erabilgarriak.denboraLibre(egunekoProiekzioak, eguna));
 				}
@@ -516,6 +516,7 @@ public class GUI {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				Erabilgarriak.ezabatuProiekzioaListatik(listaEdukiEgunarenLaburpena, egunekoProiekzioak);
+				Erabilgarriak.listaBete(listaEdukiEgunarenLaburpena, egunekoProiekzioak, eguna);
 				lblEdukiaDenboraLibre
 						.setText("Denbora librea: " + Erabilgarriak.denboraLibre(egunekoProiekzioak, eguna));
 			}
@@ -537,14 +538,14 @@ public class GUI {
 							"Filmaren izenburua eta iraupena beharrezkoak dira (aldaketak baieztatu behar dira erabili ahal izateko)");
 				} else {
 					egunekoProiekzioak.add(proiekzioa);
-					Erabilgarriak.listaBete(listaEdukiEgunarenLaburpena, egunekoProiekzioak);
+					Erabilgarriak.listaBete(listaEdukiEgunarenLaburpena, egunekoProiekzioak, eguna);
 					int denbora = Erabilgarriak.denboraLibre(egunekoProiekzioak, eguna);
 					lblEdukiaDenboraLibre
 							.setText("Denbora librea: " + denbora);
 					if (denbora == 0) {
 						CardLayout cl = (CardLayout) principal.getLayout();
 						cl.show(principal, "EgunLaburpena");
-						Erabilgarriak.egunLaburpenaBete(listEgunLaburpena, egunekoProiekzioak, eguna);
+						Erabilgarriak.listaBete(listEgunLaburpena, egunekoProiekzioak, eguna);
 					}
 				}
 			}
@@ -617,7 +618,7 @@ public class GUI {
 							"Filmaren izenburua eta iraupena beharrezkoak dira (aldaketak baieztatu behar dira erabili ahal izateko)");
 				} else {
 					egunekoProiekzioak.add(proiekzioa);
-					Erabilgarriak.listaBete(listaEdukiEgunarenLaburpena, egunekoProiekzioak);
+					Erabilgarriak.listaBete(listaEdukiEgunarenLaburpena, egunekoProiekzioak, eguna);
 					lblEdukiaDenboraLibre
 							.setText("Denbora librea: " + Erabilgarriak.denboraLibre(egunekoProiekzioak, eguna));
 				}
@@ -634,7 +635,7 @@ public class GUI {
 				Erabilgarriak.tablaEdukia(modelPanelEdukiaDokumentalak, proiekzioak, Erabilgarriak.DOKUMENTALA);
 				Erabilgarriak.tablaEdukia(modelPanelEdukiaFilmLaburrak, proiekzioak, Erabilgarriak.FILMLABURRA);
 				egunekoProiekzioak = CsvParser.irakurriProiekzioenZerrenda("datuak/" + eguna);
-				Erabilgarriak.listaBete(listaEdukiEgunarenLaburpena, egunekoProiekzioak);
+				Erabilgarriak.listaBete(listaEdukiEgunarenLaburpena, egunekoProiekzioak, eguna);
 				lblEdukiaDenboraLibre
 						.setText("Denbora librea: " + Erabilgarriak.denboraLibre(egunekoProiekzioak, eguna));
 				JOptionPane.showMessageDialog(null, "Edukia ezeztatuta");
@@ -836,37 +837,37 @@ public class GUI {
 			public void mouseClicked(MouseEvent e) {
 				eguna = Egunak.ASTELEHENA.toString();
 				egunekoProiekzioak = CsvParser.irakurriProiekzioenZerrenda("datuak/" + eguna);
-				Erabilgarriak.egunLaburpenaBete(listAstelehena, egunekoProiekzioak, eguna);
+				Erabilgarriak.listaBete(listAstelehena, egunekoProiekzioak, eguna);
 				lblDenboraAstelehena.setText("Denbora librea: " + Erabilgarriak.denboraLibre(egunekoProiekzioak, eguna));
 
 				eguna = Egunak.ASTEARTEA.toString();
 				egunekoProiekzioak = CsvParser.irakurriProiekzioenZerrenda("datuak/" + eguna);
-				Erabilgarriak.egunLaburpenaBete(listAsteartea, egunekoProiekzioak, eguna);
+				Erabilgarriak.listaBete(listAsteartea, egunekoProiekzioak, eguna);
 				lblDenboraAsteartea.setText("Denbora librea: " + Erabilgarriak.denboraLibre(egunekoProiekzioak, eguna));
 
 				eguna = Egunak.ASTEAZKENA.toString();
 				egunekoProiekzioak = CsvParser.irakurriProiekzioenZerrenda("datuak/" + eguna);
-				Erabilgarriak.egunLaburpenaBete(listAsteazkena, egunekoProiekzioak, eguna);
+				Erabilgarriak.listaBete(listAsteazkena, egunekoProiekzioak, eguna);
 				lblDenboraAsteazkena.setText("Denbora librea: " + Erabilgarriak.denboraLibre(egunekoProiekzioak, eguna));
 
 				eguna = Egunak.OSTEGUNA.toString();
 				egunekoProiekzioak = CsvParser.irakurriProiekzioenZerrenda("datuak/" + eguna);
-				Erabilgarriak.egunLaburpenaBete(listOsteguna, egunekoProiekzioak, eguna);
+				Erabilgarriak.listaBete(listOsteguna, egunekoProiekzioak, eguna);
 				lblDenboraOsteguna.setText("Denbora librea: " + Erabilgarriak.denboraLibre(egunekoProiekzioak, eguna));
 
 				eguna = Egunak.OSTIRALA.toString();
 				egunekoProiekzioak = CsvParser.irakurriProiekzioenZerrenda("datuak/" + eguna);
-				Erabilgarriak.egunLaburpenaBete(listOstirala, egunekoProiekzioak, eguna);
+				Erabilgarriak.listaBete(listOstirala, egunekoProiekzioak, eguna);
 				lblDenboraOstirala.setText("Denbora librea: " + Erabilgarriak.denboraLibre(egunekoProiekzioak, eguna));
 
 				eguna = Egunak.LARUNBATA.toString();
 				egunekoProiekzioak = CsvParser.irakurriProiekzioenZerrenda("datuak/" + eguna);
-				Erabilgarriak.egunLaburpenaBete(listLarunbata, egunekoProiekzioak, eguna);
+				Erabilgarriak.listaBete(listLarunbata, egunekoProiekzioak, eguna);
 				lblDenboraLarunbata.setText("Denbora librea: " + Erabilgarriak.denboraLibre(egunekoProiekzioak, eguna));
 
 				eguna = Egunak.IGANDEA.toString();
 				egunekoProiekzioak = CsvParser.irakurriProiekzioenZerrenda("datuak/" + eguna);
-				Erabilgarriak.egunLaburpenaBete(listIgandea, egunekoProiekzioak, eguna);
+				Erabilgarriak.listaBete(listIgandea, egunekoProiekzioak, eguna);
 				lblDenboraIgandea.setText("Denbora librea: " + Erabilgarriak.denboraLibre(egunekoProiekzioak, eguna));
 				
 				CardLayout cl = (CardLayout) principal.getLayout();
