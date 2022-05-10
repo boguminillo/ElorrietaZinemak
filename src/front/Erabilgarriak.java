@@ -140,15 +140,6 @@ public class Erabilgarriak {
 		return null;
 	}
 
-	public static Proiekzioa proiekzioaLortu(String izenburua, ArrayList<Proiekzioa> proiekzioak) {
-		for (Proiekzioa p : proiekzioak) {
-			if (p.getIzenburua().equals(izenburua)) {
-				return p;
-			}
-		}
-		return null;
-	}
-
 	public static int denboraLibre(ArrayList<Proiekzioa> proiekzioak, String eguna) {
 		int denboraLibre = egunDenborak.get(eguna);
 		for (Proiekzioa p : proiekzioak) {

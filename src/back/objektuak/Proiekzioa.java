@@ -98,7 +98,7 @@ public abstract class Proiekzioa {
 	 * @return Proiekzioaren laburpen testua
 	 */
 	public String toLaburpenTestua(){
-		return izenburua + " - " +  iraupena + " minutu";
+		return id + " - " + izenburua + " - " +  iraupena + " minutu";
 	}
 
 	/**

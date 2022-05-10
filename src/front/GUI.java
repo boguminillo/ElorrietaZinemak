@@ -655,9 +655,9 @@ public class GUI {
 		listEgunLaburpena = new JList<String>();
 		listEgunLaburpena.addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent e) {
-				String izenburua = listEgunLaburpena.getSelectedValue()
+				String id = listEgunLaburpena.getSelectedValue()
 				.substring(0, listEgunLaburpena.getSelectedValue().indexOf(" - ")).trim();
-				Proiekzioa proiekzioa = Erabilgarriak.proiekzioaLortu(izenburua, egunekoProiekzioak);
+				Proiekzioa proiekzioa = Erabilgarriak.proiekzioaLortu(Integer.parseInt(id), egunekoProiekzioak);
 				JOptionPane.showMessageDialog(null, proiekzioa.toTestua());
 			}
 		});
@@ -695,9 +695,9 @@ public class GUI {
 		JList<String> listAstelehena = new JList<String>();
 		listAstelehena.addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent e) {
-				String izenburua = listAstelehena.getSelectedValue()
+				String id = listAstelehena.getSelectedValue()
 						.substring(0, listAstelehena.getSelectedValue().indexOf(" - ")).trim();
-				Proiekzioa proiekzioa = Erabilgarriak.proiekzioaLortu(izenburua, proiekzioak);
+				Proiekzioa proiekzioa = Erabilgarriak.proiekzioaLortu(Integer.parseInt(id), proiekzioak);
 				JOptionPane.showMessageDialog(null, proiekzioa.toTestua());
 			}
 		});
@@ -706,9 +706,9 @@ public class GUI {
 		JList<String> listAsteartea = new JList<String>();
 		listAsteartea.addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent e) {
-				String izenburua = listAsteartea.getSelectedValue()
+				String id = listAsteartea.getSelectedValue()
 						.substring(0, listAsteartea.getSelectedValue().indexOf(" - ")).trim();
-				Proiekzioa proiekzioa = Erabilgarriak.proiekzioaLortu(izenburua, proiekzioak);
+				Proiekzioa proiekzioa = Erabilgarriak.proiekzioaLortu(Integer.parseInt(id), proiekzioak);
 				JOptionPane.showMessageDialog(null, proiekzioa.toTestua());
 			}
 		});
@@ -717,9 +717,9 @@ public class GUI {
 		JList<String> listAsteazkena = new JList<String>();
 		listAsteazkena.addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent e) {
-				String izenburua = listAsteazkena.getSelectedValue()
+				String id = listAsteazkena.getSelectedValue()
 						.substring(0, listAsteazkena.getSelectedValue().indexOf(" - ")).trim();
-				Proiekzioa proiekzioa = Erabilgarriak.proiekzioaLortu(izenburua, proiekzioak);
+				Proiekzioa proiekzioa = Erabilgarriak.proiekzioaLortu(Integer.parseInt(id), proiekzioak);
 				JOptionPane.showMessageDialog(null, proiekzioa.toTestua());
 			}
 		});
@@ -728,9 +728,9 @@ public class GUI {
 		JList<String> listOsteguna = new JList<String>();
 		listOsteguna.addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent e) {
-				String izenburua = listOsteguna.getSelectedValue()
+				String id = listOsteguna.getSelectedValue()
 						.substring(0, listOsteguna.getSelectedValue().indexOf(" - ")).trim();
-				Proiekzioa proiekzioa = Erabilgarriak.proiekzioaLortu(izenburua, proiekzioak);
+				Proiekzioa proiekzioa = Erabilgarriak.proiekzioaLortu(Integer.parseInt(id), proiekzioak);
 				JOptionPane.showMessageDialog(null, proiekzioa.toTestua());
 			}
 		});
@@ -739,9 +739,9 @@ public class GUI {
 		JList<String> listOstirala = new JList<String>();
 		listOstirala.addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent e) {
-				String izenburua = listOstirala.getSelectedValue()
+				String id = listOstirala.getSelectedValue()
 						.substring(0, listOstirala.getSelectedValue().indexOf(" - ")).trim();
-				Proiekzioa proiekzioa = Erabilgarriak.proiekzioaLortu(izenburua, proiekzioak);
+				Proiekzioa proiekzioa = Erabilgarriak.proiekzioaLortu(Integer.parseInt(id), proiekzioak);
 				JOptionPane.showMessageDialog(null, proiekzioa.toTestua());
 			}
 		});
@@ -750,9 +750,9 @@ public class GUI {
 		JList<String> listLarunbata = new JList<String>();
 		listLarunbata.addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent e) {
-				String izenburua = listLarunbata.getSelectedValue()
+				String id = listLarunbata.getSelectedValue()
 						.substring(0, listLarunbata.getSelectedValue().indexOf(" - ")).trim();
-				Proiekzioa proiekzioa = Erabilgarriak.proiekzioaLortu(izenburua, proiekzioak);
+				Proiekzioa proiekzioa = Erabilgarriak.proiekzioaLortu(Integer.parseInt(id), proiekzioak);
 				JOptionPane.showMessageDialog(null, proiekzioa.toTestua());
 			}
 		});
@@ -761,9 +761,9 @@ public class GUI {
 		JList<String> listIgandea = new JList<String>();
 		listIgandea.addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent e) {
-				String izenburua = listIgandea.getSelectedValue()
+				String id = listIgandea.getSelectedValue()
 						.substring(0, listIgandea.getSelectedValue().indexOf(" - ")).trim();
-				Proiekzioa proiekzioa = Erabilgarriak.proiekzioaLortu(izenburua, proiekzioak);
+				Proiekzioa proiekzioa = Erabilgarriak.proiekzioaLortu(Integer.parseInt(id), proiekzioak);
 				JOptionPane.showMessageDialog(null, proiekzioa.toTestua());
 			}
 		});
