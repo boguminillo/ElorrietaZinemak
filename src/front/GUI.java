@@ -44,30 +44,54 @@ import back.objektuak.Funtzioak;
 import back.objektuak.Proiekzioa;
 import net.miginfocom.swing.MigLayout;
 
+/**
+ * Aplikazioaren interfaz grafikoa.
+ */
 public class GUI {
 
+	/** Momentu bakoitzean erabiltzen den eguna */
 	private String eguna;
+	/** Aplikazioaren frame */
 	private JFrame frmElorrietaZinema;
+	/** Login egiteko erabiltzailea duen TextField */
 	private JTextField txtLoginErabiltzailea;
+	/** Login egiteko pasahitza duen TextField */
 	private JPasswordField passwordFieldLogin;
+	/** Erregistroa egiteko jaiotze data duen TextField */
 	private JTextField txtErregistroJaiotzeData;
+	/** Erregistroa egiteko abizenak duen TextField */
 	private JTextField txtErregistroAbizenak;
+	/** Erregistroa egiteko izena duen TextField */
 	private JTextField txtErregistroIzena;
+	/** Erregistroa egiteko pasahitza errepikatua duen PasswordField */
 	private JPasswordField passwordFieldErregistroErrepikatu;
+	/** Erregistroa egiteko pasahitza duen PasswordField */
 	private JPasswordField passwordFieldErregistro;
+	/** Erregistroa egiteko erabiltzailea duen TextField */
 	private JTextField txtErregistroErabiltzailea;
+	/** Eguna aukeratzeko ComboBox */
 	private JComboBox comboBoxEgunAutaketa;
+	/** Eduki guztiak erakusten direnean filmak izango dituen taula */
 	private JTable tableEdukiaFilmak;
+	/** Eduki guztiak erakusten direnean dokumentalak izango dituen taula */
 	private JTable tableEdukiaDokumentalak;
+	/** Eduki guztiak erakusten direnean film laburrak izango dituen taula */
 	private JTable tableEdukiaFilmLaburrak;
+	/** Egunaren laburpena edukia bistan erakusteko lista */
 	private JList<String> listaEdukiEgunarenLaburpena;
+	/** Edukia erakusterakoan denbora librea erakusteko labela */
 	private JLabel lblEdukiaDenboraLibre;
+	/** Egunaren laburpena erakusteko lista */
 	private JList<String> listEgunLaburpena;
+	/** Proiekzio guztiak izango dituen lista */
 	private ArrayList<Proiekzioa> proiekzioak = CsvParser.irakurriProiekzioenZerrenda("datuak/proiekzioak");
+	/** Eguneko proiekzioak izango dituen lista */
 	private ArrayList<Proiekzioa> egunekoProiekzioak = CsvParser.irakurriProiekzioenZerrenda("datuak/ASTELEHENA");
 
 	/**
-	 * Launch the application.
+	 * Aplikazioa abiarazteko metodoa.
+	 * 
+	 * @param args programa abiarazteko argumentuak
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {

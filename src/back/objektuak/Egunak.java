@@ -4,5 +4,18 @@ package back.objektuak;
  * Egunen izenaak dituen enuma.
  */
 public enum Egunak {
-	ASTELEHENA, ASTEARTEA, ASTEAZKENA, OSTEGUNA, OSTIRALA, LARUNBATA, IGANDEA
+	/** Astelehena */
+	ASTELEHENA,
+	/** Asteartea */
+	ASTEARTEA,
+	/** Asteazkena */
+	ASTEAZKENA,
+	/** Osteguna */
+	OSTEGUNA,
+	/** Ostirala */
+	OSTIRALA,
+	/** Larunbata */
+	LARUNBATA,
+	/** Igandea */
+	IGANDEA
 }
