@@ -107,14 +107,14 @@ public class GUI {
 	}
 
 	/**
-	 * Create the application.
+	 * Aplikazioa sortu.
 	 */
 	public GUI() {
 		initialize();
 	}
 
 	/**
-	 * Initialize the contents of the frame.
+	 * Frame-a hasieratu
 	 */
 	private void initialize() {
 		frmElorrietaZinema = new JFrame();
@@ -220,7 +220,7 @@ public class GUI {
 				if (erabiltzailea.login()) {
 					CardLayout cl = (CardLayout) principal.getLayout();
 					cl.show(principal, "EgunAutaketa");
-					// Hacemos dos cambios para asegurar que se dispare el evento que mostrara el
+					// TODO Hacemos dos cambios para asegurar que se dispare el evento que mostrara el
 					// resumen del dia
 					comboBoxEgunAutaketa.setSelectedIndex(1);
 					comboBoxEgunAutaketa.setSelectedIndex(0);
@@ -720,7 +720,7 @@ public class GUI {
 		egunLaburpena.add(btnEgunLaburpenaBaieztatu, "cell 2 3,alignx right");
 		
 		JPanel asteLaburpena = new JPanel();
-		// documentar que esta pantalla no se veia bien por el tamaño y se soluciono con el jscrollpane
+		// TODO documentar que esta pantalla no se veia bien por el tamaño y se soluciono con el jscrollpane
 		JScrollPane scrollPaneAsteLaburpena = new JScrollPane(asteLaburpena);
 		principal.add(scrollPaneAsteLaburpena, "AsteLaburpena");
 		asteLaburpena.setLayout(new MigLayout("", "[grow][][][][][][][][grow]", "[grow][bottom][][][grow][]"));
