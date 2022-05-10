@@ -87,7 +87,7 @@ public class Erabilgarriak {
 	 * @param mota Proiekzioen mota
 	 */
 	public static void tablaEdukia(DefaultTableModel tableModel, ArrayList<Proiekzioa> proiekzioak, String mota) {
-		// documentar error al cancelar los cambios se duplicaba en lugar de reiniciar las tablas, solucionado con la linea de debajo`
+		//TODO documentar error al cancelar los cambios se duplicaba en lugar de reiniciar las tablas, solucionado con la linea de debajo`
 		tableModel.setRowCount(0);
 		for (Proiekzioa proiekzioa : proiekzioak) {
 			if (mota.equals(FILMA)) {
@@ -140,7 +140,7 @@ public class Erabilgarriak {
 			int id = (Integer) modelo.getValueAt(i, 0);
 			String izenburua = (String) modelo.getValueAt(i, 1);
 			int iraupena;
-			// documentar error cuando estaba en blanco, solucionado con los try catch
+			//TODO documentar error cuando estaba en blanco, solucionado con los try catch
 			try{iraupena = (Integer) modelo.getValueAt(i, 2);} catch (Exception e) {iraupena = 0;}
 			if (mota.equals(FILMA)) {
 				String produktora = (String) modelo.getValueAt(i, 3);
@@ -274,7 +274,7 @@ public class Erabilgarriak {
 		String testua = (String) lista.getSelectedValue();
 
 		// if (index != -1) {
-		// 	// documentar error, no se puede eliminar la fila de la lista, hay que hacerlo con el modelo
+		// 	//TODO documentar error, no se puede eliminar la fila de la lista, hay que hacerlo con el modelo
 		// 	DefaultListModel<String> modelo = (DefaultListModel<String>) lista.getModel();
 		// 	modelo.remove(index);
 		// }
