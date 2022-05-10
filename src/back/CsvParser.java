@@ -24,6 +24,7 @@ public class CsvParser {
 	 * Proiekzioa irakurri
 	 * 
 	 * @param linea Proiekzioaren csv lerroa
+	 * @return Proiekzioa
 	 */
 	public static Proiekzioa irakurriProiekzioa(String linea) {
 		String[] valioak = linea.split(";");
@@ -84,7 +85,7 @@ public class CsvParser {
 	 * Proiekzioen zerrenda idatzi
 	 * 
 	 * @param fitxeroa Fitxeroaren izena
-	 * @param ArrayList<Proiekzioa> Proiekzioen zerrenda
+	 * @param proiekzioenZerrenda Proiekzioen zerrenda
 	 */
 	public static void idatziProiekzioenZerrenda(String fitxeroa, ArrayList<Proiekzioa> proiekzioenZerrenda) {
 		try {
