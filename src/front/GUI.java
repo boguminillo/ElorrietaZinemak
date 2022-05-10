@@ -382,6 +382,15 @@ public class GUI {
 		principal.add(edukia, "Edukia");
 		edukia.setLayout(
 				new MigLayout("", "[grow][leading][][][][][][][grow]", "[grow][][grow][][][][][][grow]"));
+		
+		JButton btnEdukiaEzabatuFilma = new JButton("-");
+		btnEdukiaEzabatuFilma.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				Erabilgarriak.ezabatuProiekzioaTaulatik(tableEdukiaFilmak, proiekzioak);
+			}
+		});
+		edukia.add(btnEdukiaEzabatuFilma, "cell 2 1,alignx right");
 
 		JLabel lblFilmak = new JLabel("Filmak");
 		edukia.add(lblFilmak, "cell 3 1,alignx center");
@@ -451,6 +460,15 @@ public class GUI {
 
 		listaEdukiEgunarenLaburpena = new JList<String>();
 		edukia.add(listaEdukiEgunarenLaburpena, "cell 7 2 1 5,grow");
+		
+		JButton btnEdukiaEzabatuFilmL = new JButton("-");
+		btnEdukiaEzabatuFilmL.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				Erabilgarriak.ezabatuProiekzioaTaulatik(tableEdukiaFilmLaburrak, proiekzioak);
+			}
+		});
+		edukia.add(btnEdukiaEzabatuFilmL, "cell 2 3,alignx right");
 
 		JLabel lblFilmLaburrak = new JLabel("Film laburrak");
 		edukia.add(lblFilmLaburrak, "cell 3 3,alignx center");
@@ -497,7 +515,7 @@ public class GUI {
 		btnEdukiaEzabatu.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				Erabilgarriak.ezabatuFilma(listaEdukiEgunarenLaburpena, egunekoProiekzioak);
+				Erabilgarriak.ezabatuProiekzioaListatik(listaEdukiEgunarenLaburpena, egunekoProiekzioak);
 				lblEdukiaDenboraLibre
 						.setText("Denbora librea: " + Erabilgarriak.denboraLibre(egunekoProiekzioak, eguna));
 			}
@@ -532,6 +550,15 @@ public class GUI {
 			}
 		});
 		edukia.add(btnEdukiaGehituFilmaL, "cell 6 4,growx");
+		
+		JButton btnEdukiaEzabatuDok = new JButton("-");
+		btnEdukiaEzabatuDok.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				Erabilgarriak.ezabatuProiekzioaTaulatik(tableEdukiaDokumentalak, proiekzioak);
+			}
+		});
+		edukia.add(btnEdukiaEzabatuDok, "cell 2 5,alignx right");
 
 		JLabel lblDokumentalak = new JLabel("Dokumentalak");
 		edukia.add(lblDokumentalak, "cell 3 5,alignx center");

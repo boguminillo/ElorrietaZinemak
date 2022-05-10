@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import back.objektuak.Dokumentala;
@@ -187,7 +188,7 @@ public class Erabilgarriak {
 		listaEdukiEgunarenLaburpena.setModel(modelo);
 	}
 
-	public static void ezabatuFilma(JList<String> lista, ArrayList<Proiekzioa> proiekzioak) {
+	public static void ezabatuProiekzioaListatik(JList<String> lista, ArrayList<Proiekzioa> proiekzioak) {
 		int index = lista.getSelectedIndex();
 		String testua = (String) lista.getSelectedValue();
 
@@ -202,6 +203,22 @@ public class Erabilgarriak {
 			if (proiekzioak.get(i).getIzenburua().equals(Izenburua.trim())) {
 				proiekzioak.remove(i);
 				return;
+			}
+		}
+	}
+
+	public static void ezabatuProiekzioaTaulatik(JTable taula, ArrayList<Proiekzioa> proiekzioak) {
+		int row = taula.getSelectedRow();
+		if (row != -1) {
+			DefaultTableModel modelo = (DefaultTableModel) taula.getModel();
+			modelo.removeRow(row);
+
+			int id = (int) taula.getValueAt(row, 0);
+			for (int i = 0; i < proiekzioak.size(); i++) {
+				if (proiekzioak.get(i).getId() == id) {
+					proiekzioak.remove(i);
+					return;
+				}
 			}
 		}
 	}
