@@ -141,7 +141,6 @@ public class GUI {
 		/* OngiEtorri Argazkia */
 
 		ImageIcon ongietorriArgazkia = new ImageIcon("assets/ongietorri.jpg");
-		// TODO Tenemos que poner el logo en el ongietorria (editar con inkscape)
 
 		JLabel lblIconOngiEtorri = new JLabel();
 		Font font = new Font("Agency FB", Font.BOLD, 36);
@@ -220,8 +219,6 @@ public class GUI {
 				if (erabiltzailea.login()) {
 					CardLayout cl = (CardLayout) principal.getLayout();
 					cl.show(principal, "EgunAutaketa");
-					// TODO Hacemos dos cambios para asegurar que se dispare el evento que mostrara el
-					// resumen del dia
 					comboBoxEgunAutaketa.setSelectedIndex(1);
 					comboBoxEgunAutaketa.setSelectedIndex(0);
 				} else if (!erabiltzailea.login())
@@ -700,7 +697,6 @@ public class GUI {
 				CsvParser.idatziProiekzioenZerrenda("datuak/" + eguna, egunekoProiekzioak);
 				CardLayout cl = (CardLayout) principal.getLayout();
 				cl.show(principal, "EgunAutaketa");
-				// TODO Explicar lo de abajo lel
 				comboBoxEgunAutaketa.setSelectedIndex(1);
 				comboBoxEgunAutaketa.setSelectedIndex(0);
 			}
@@ -720,7 +716,6 @@ public class GUI {
 		egunLaburpena.add(btnEgunLaburpenaBaieztatu, "cell 2 3,alignx right");
 		
 		JPanel asteLaburpena = new JPanel();
-		// TODO documentar que esta pantalla no se veia bien por el tamaño y se soluciono con el jscrollpane
 		JScrollPane scrollPaneAsteLaburpena = new JScrollPane(asteLaburpena);
 		principal.add(scrollPaneAsteLaburpena, "AsteLaburpena");
 		asteLaburpena.setLayout(new MigLayout("", "[grow][][][][][][][][grow]", "[grow][bottom][][][grow][]"));
@@ -829,7 +824,6 @@ public class GUI {
 			public void mouseClicked(MouseEvent e) {
 				CardLayout cl = (CardLayout) principal.getLayout();
 				cl.show(principal, "EgunAutaketa");
-				// TODO Explicar lo de abajo lel
 				comboBoxEgunAutaketa.setSelectedIndex(1);
 				comboBoxEgunAutaketa.setSelectedIndex(0);
 			}
